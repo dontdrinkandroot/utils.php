@@ -22,13 +22,13 @@ class StringUtilsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFirstChar()
     {
-        $this->assertEquals('', StringUtils::getFirstChar(''));
+        $this->assertFalse(StringUtils::getFirstChar(''));
         $this->assertEquals('b', StringUtils::getFirstChar('bla'));
     }
 
     public function testGetLastChar()
     {
-        $this->assertEquals('', StringUtils::getLastChar(''));
+        $this->assertFalse(StringUtils::getLastChar(''));
         $this->assertEquals('a', StringUtils::getLastChar('bla'));
     }
 

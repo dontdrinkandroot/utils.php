@@ -40,6 +40,14 @@ abstract class AbstractPath implements Path
         return array_merge($this->getParentPath()->collectPaths(), array($this));
     }
 
+    /**
+     * @inheritdoc
+     */
+    function isFilePath()
+    {
+        return !$this->isDirectoryPath();
+    }
+
     public function setParentPath(DirectoryPath $path)
     {
         $this->parentPath = $path;
@@ -48,13 +56,5 @@ abstract class AbstractPath implements Path
     public function __toString()
     {
         return $this->toAbsoluteUrlString();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    function isFilePath()
-    {
-        return !$this->isDirectoryPath();
     }
 }

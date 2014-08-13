@@ -86,6 +86,14 @@ class FilePath extends AbstractPath
         return FilePath::parse($path->toAbsoluteUrlString() . $this->toAbsoluteUrlString());
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function isDirectoryPath()
+    {
+        return false;
+    }
+
     public function getExtension()
     {
         return $this->extension;
@@ -94,14 +102,6 @@ class FilePath extends AbstractPath
     public function getFileName()
     {
         return $this->fileName;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    function isDirectoryPath()
-    {
-        return false;
     }
 
     /**

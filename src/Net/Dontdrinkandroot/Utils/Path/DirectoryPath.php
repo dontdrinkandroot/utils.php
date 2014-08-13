@@ -26,6 +26,7 @@ class DirectoryPath extends AbstractPath
     /**
      * @param $name
      * @return DirectoryPath
+     * @throws \Exception Thrown if appending directory name fails.
      */
     public function appendDirectory($name)
     {
@@ -46,6 +47,7 @@ class DirectoryPath extends AbstractPath
     /**
      * @param $name
      * @return FilePath
+     * @throws \Exception Thrown if appending file name fails.
      */
     public function appendFile($name)
     {
@@ -150,6 +152,14 @@ class DirectoryPath extends AbstractPath
         return self::parseDirectoryPath($pathString, new DirectoryPath());
     }
 
+    /**
+     * @inheritdoc
+     */
+    function isDirectoryPath()
+    {
+        return true;
+    }
+
     public function appendPathString($pathString)
     {
         $lastPath = $this;
@@ -178,14 +188,6 @@ class DirectoryPath extends AbstractPath
         }
 
         return $directoryPath;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    function isDirectoryPath()
-    {
-        return true;
     }
 
     protected static function parseDirectoryPath($pathString, DirectoryPath $rootPath)
