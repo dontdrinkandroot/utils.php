@@ -67,6 +67,7 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
+     * @deprecated
      * @inheritdoc
      */
     public function toAbsoluteUrlString()
@@ -75,6 +76,7 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
+     * @deprecated
      * @inheritdoc
      */
     public function toRelativeUrlString()
@@ -83,6 +85,7 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
+     * @deprecated
      * @inheritdoc
      */
     public function toAbsoluteFileString()
@@ -91,6 +94,7 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
+     * @deprecated
      * @inheritdoc
      */
     public function toRelativeFileString()
