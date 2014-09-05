@@ -81,6 +81,22 @@ class FilePath extends AbstractPath
     /**
      * @inheritdoc
      */
+    function toRelativeString($separator = '/')
+    {
+        return $this->parentPath->toRelativeString($separator) . $this->getName();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function toAbsoluteString($separator = '/')
+    {
+        return $this->parentPath->toAbsoluteString($$separator) . $this->getName();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function prepend(DirectoryPath $path)
     {
         return FilePath::parse($path->toAbsoluteUrlString() . $this->toAbsoluteUrlString());
@@ -135,4 +151,4 @@ class FilePath extends AbstractPath
 
         return $filePath;
     }
-} 
+}

@@ -3,7 +3,6 @@
 
 namespace Net\Dontdrinkandroot\Utils\Path;
 
-
 use Net\Dontdrinkandroot\Utils\StringUtils;
 
 class DirectoryPath extends AbstractPath
@@ -25,6 +24,7 @@ class DirectoryPath extends AbstractPath
 
     /**
      * @param $name
+     *
      * @return DirectoryPath
      * @throws \Exception Thrown if appending directory name fails.
      */
@@ -46,6 +46,7 @@ class DirectoryPath extends AbstractPath
 
     /**
      * @param $name
+     *
      * @return FilePath
      * @throws \Exception Thrown if appending file name fails.
      */
@@ -70,11 +71,7 @@ class DirectoryPath extends AbstractPath
      */
     public function toAbsoluteUrlString()
     {
-        if (null === $this->parentPath) {
-            return '/';
-        }
-
-        return $this->parentPath->toAbsoluteUrlString() . $this->name . '/';
+        return $this->toAbsoluteString('/');
     }
 
     /**
@@ -82,11 +79,7 @@ class DirectoryPath extends AbstractPath
      */
     public function toRelativeUrlString()
     {
-        if (null === $this->parentPath) {
-            return '';
-        }
-
-        return $this->parentPath->toRelativeUrlString() . $this->name . '/';
+        return $this->toRelativeString('/');
     }
 
     /**
@@ -94,11 +87,7 @@ class DirectoryPath extends AbstractPath
      */
     public function toAbsoluteFileString()
     {
-        if (null === $this->parentPath) {
-            return DIRECTORY_SEPARATOR;
-        }
-
-        return $this->parentPath->toAbsoluteUrlString() . $this->name . DIRECTORY_SEPARATOR;
+        return $this->toAbsoluteString(DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -106,11 +95,31 @@ class DirectoryPath extends AbstractPath
      */
     public function toRelativeFileString()
     {
+        return $this->toRelativeString(DIRECTORY_SEPARATOR);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toRelativeString($separator = '/')
+    {
         if (null === $this->parentPath) {
             return '';
         }
 
-        return $this->parentPath->toRelativeFileString() . $this->name . DIRECTORY_SEPARATOR;
+        return $this->parentPath->toRelativeString() . $this->name . $separator;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function toAbsoluteString($separator = '/')
+    {
+        if (null === $this->parentPath) {
+            return $separator;
+        }
+
+        return $this->parentPath->toAbsoluteString() . $this->name . $separator;
     }
 
     /**
@@ -136,6 +145,7 @@ class DirectoryPath extends AbstractPath
 
     /**
      * @param $pathString
+     *
      * @return DirectoryPath
      * @throws \Exception
      */
@@ -216,5 +226,4 @@ class DirectoryPath extends AbstractPath
 
         return $lastPath;
     }
-
-} 
+}

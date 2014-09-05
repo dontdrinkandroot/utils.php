@@ -3,7 +3,6 @@
 
 namespace Net\Dontdrinkandroot\Utils\Path;
 
-
 interface Path
 {
 
@@ -24,6 +23,7 @@ interface Path
 
     /**
      * @param DirectoryPath $path
+     *
      * @return Path
      */
     function prepend(DirectoryPath $path);
@@ -34,24 +34,42 @@ interface Path
     function collectPaths();
 
     /**
+     * @deprecated
      * @return string
      */
     function toAbsoluteUrlString();
 
     /**
+     * @deprecated
      * @return string
      */
     function toRelativeUrlString();
 
     /**
+     * @deprecated
      * @return string
      */
     function toAbsoluteFileString();
 
     /**
+     * @deprecated
      * @return string
      */
     function toRelativeFileString();
+
+    /**
+     * @param string $separator
+     *
+     * @return string
+     */
+    function toRelativeString($separator = '/');
+
+    /**
+     * @param string $separator
+     *
+     * @return string
+     */
+    function toAbsoluteString($separator = '/');
 
     /**
      * @return bool
@@ -62,5 +80,4 @@ interface Path
      * @return bool
      */
     function isDirectoryPath();
-
-} 
+}
