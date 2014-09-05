@@ -214,4 +214,9 @@ class DirectoryPathTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('md', $filePath->getExtension());
     }
 
-} 
+    public function testParse()
+    {
+        $this->assertEquals('/sub/subsub/', DirectoryPath::parse("/sub/subsub/")->toAbsoluteString());
+        $this->assertEquals('/sub/subsub/', DirectoryPath::parse('\sub\subsub\\', '\\')->toAbsoluteString());
+    }
+}

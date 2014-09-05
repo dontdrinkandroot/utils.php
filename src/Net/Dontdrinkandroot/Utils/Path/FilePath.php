@@ -3,7 +3,6 @@
 
 namespace Net\Dontdrinkandroot\Utils\Path;
 
-
 use Net\Dontdrinkandroot\Utils\StringUtils;
 
 class FilePath extends AbstractPath
@@ -52,7 +51,7 @@ class FilePath extends AbstractPath
      */
     public function toAbsoluteUrlString()
     {
-        return $this->parentPath->toAbsoluteUrlString() . $this->getName();
+        return $this->toAbsoluteString('/');
     }
 
     /**
@@ -61,7 +60,7 @@ class FilePath extends AbstractPath
      */
     public function toRelativeUrlString()
     {
-        return $this->parentPath->toRelativeUrlString() . $this->getName();
+        return $this->toRelativeString('/');
     }
 
     /**
@@ -70,7 +69,7 @@ class FilePath extends AbstractPath
      */
     public function toAbsoluteFileString()
     {
-        return $this->parentPath->toAbsoluteFileString() . $this->getName();
+        return $this->toAbsoluteString(DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -79,7 +78,7 @@ class FilePath extends AbstractPath
      */
     public function toRelativeFileString()
     {
-        return $this->parentPath->toRelativeFileString() . $this->getName();
+        return $this->toRelativeString(DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -95,7 +94,7 @@ class FilePath extends AbstractPath
      */
     function toAbsoluteString($separator = '/')
     {
-        return $this->parentPath->toAbsoluteString($$separator) . $this->getName();
+        return $this->parentPath->toAbsoluteString($separator) . $this->getName();
     }
 
     /**
@@ -125,23 +124,25 @@ class FilePath extends AbstractPath
     }
 
     /**
-     * @param $pathString
+     * @param string $pathString
+     * @param string $separator
+     *
      * @return FilePath
      * @throws \Exception
      */
-    public static function parse($pathString)
+    public static function parse($pathString, $separator = '/')
     {
         if (empty($pathString)) {
             throw new \Exception('Path String must not be empty');
         }
 
-        if (StringUtils::getLastChar($pathString) === '/') {
-            throw new \Exception('Path String must not end with /');
+        if (StringUtils::getLastChar($pathString) === $separator) {
+            throw new \Exception('Path String must not end with ' . $separator);
         }
 
         $directoryPart = null;
         $filePart = $pathString;
-        $lastSlashPos = strrpos($pathString, '/');
+        $lastSlashPos = strrpos($pathString, $separator);
         if (false !== $lastSlashPos) {
             $directoryPart = substr($pathString, 0, $lastSlashPos + 1);
             $filePart = substr($pathString, $lastSlashPos + 1);
@@ -150,7 +151,7 @@ class FilePath extends AbstractPath
         $filePath = new FilePath($filePart);
 
         if (null !== $directoryPart) {
-            $filePath->setParentPath(DirectoryPath::parse($directoryPart));
+            $filePath->setParentPath(DirectoryPath::parse($directoryPart, $separator));
         }
 
         return $filePath;

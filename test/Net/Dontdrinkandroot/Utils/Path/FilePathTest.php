@@ -108,16 +108,22 @@ class FilePathTest extends \PHPUnit_Framework_TestCase
     public function testToStrings()
     {
         $path = FilePath::parse("/sub/subsub/index.md");
-        $this->assertEquals('/sub/subsub/index.md', $path->toAbsoluteUrlString());
+        $this->assertEquals('/sub/subsub/index.md', $path->toAbsoluteString());
         $this->assertEquals(
             DIRECTORY_SEPARATOR . 'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR . 'index.md',
-            $path->toAbsoluteFileString()
+            $path->toAbsoluteString(DIRECTORY_SEPARATOR)
         );
-        $this->assertEquals('sub/subsub/index.md', $path->toRelativeUrlString());
+        $this->assertEquals('sub/subsub/index.md', $path->toRelativeString());
         $this->assertEquals(
             'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR . 'index.md',
-            $path->toRelativeFileString()
+            $path->toRelativeString(DIRECTORY_SEPARATOR)
         );
+    }
+
+    public function testParse()
+    {
+        $this->assertEquals('/sub/subsub/index.md', FilePath::parse("/sub/subsub/index.md")->toAbsoluteString());
+        $this->assertEquals('/sub/subsub/index.md', FilePath::parse('\sub\subsub\index.md', '\\')->toAbsoluteString());
     }
 
     public function testPrepend()

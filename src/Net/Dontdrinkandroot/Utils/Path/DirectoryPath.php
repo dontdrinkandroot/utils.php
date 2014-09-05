@@ -23,7 +23,7 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return DirectoryPath
      * @throws \Exception Thrown if appending directory name fails.
@@ -45,7 +45,7 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return FilePath
      * @throws \Exception Thrown if appending file name fails.
@@ -148,22 +148,23 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
-     * @param $pathString
+     * @param string $pathString
+     * @param string $separator
      *
      * @return DirectoryPath
      * @throws \Exception
      */
-    public static function parse($pathString)
+    public static function parse($pathString, $separator = '/')
     {
         if (empty($pathString)) {
             return new DirectoryPath();
         }
 
-        if (!(StringUtils::getLastChar($pathString) === '/')) {
-            throw new \Exception('Path String must end with /');
+        if (!(StringUtils::getLastChar($pathString) === $separator)) {
+            throw new \Exception('Path String must end with ' . $separator);
         }
 
-        return self::parseDirectoryPath($pathString, new DirectoryPath());
+        return self::parseDirectoryPath($pathString, new DirectoryPath(), $separator);
     }
 
     /**
@@ -204,11 +205,11 @@ class DirectoryPath extends AbstractPath
         return $directoryPath;
     }
 
-    protected static function parseDirectoryPath($pathString, DirectoryPath $rootPath)
+    protected static function parseDirectoryPath($pathString, DirectoryPath $rootPath, $separator = '/')
     {
         $lastPath = $rootPath;
         if (null !== $pathString) {
-            $parts = explode('/', $pathString);
+            $parts = explode($separator, $pathString);
             foreach ($parts as $part) {
                 $trimmedPart = trim($part);
                 if ($trimmedPart === '..') {
