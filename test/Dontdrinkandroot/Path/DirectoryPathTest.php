@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Net\Dontdrinkandroot\Utils\Path;
+namespace Dontdrinkandroot\Path;
 
 
 class DirectoryPathTest extends \PHPUnit_Framework_TestCase

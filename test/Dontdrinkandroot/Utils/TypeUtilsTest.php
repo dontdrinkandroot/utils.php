@@ -1,6 +1,6 @@
 <?php
 
-namespace Net\Dontdrinkandroot\Utils;
+namespace Dontdrinkandroot\Utils;
 
 class TypeUtilsTest extends \PHPUnit_Framework_TestCase
 {

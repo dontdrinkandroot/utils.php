@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Net\Dontdrinkandroot\Utils\Path;
+namespace Dontdrinkandroot\Path;
 
-use Net\Dontdrinkandroot\Utils\StringUtils;
+use Dontdrinkandroot\Utils\StringUtils;
 
 class DirectoryPath extends AbstractPath
 {

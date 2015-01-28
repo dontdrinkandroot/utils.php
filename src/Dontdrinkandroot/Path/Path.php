@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Net\Dontdrinkandroot\Utils\Path;
+namespace Dontdrinkandroot\Path;
 
 interface Path
 {

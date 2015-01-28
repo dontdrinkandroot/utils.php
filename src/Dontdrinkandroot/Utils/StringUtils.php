@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Net\Dontdrinkandroot\Utils;
+namespace Dontdrinkandroot\Utils;
 
 
 class StringUtils

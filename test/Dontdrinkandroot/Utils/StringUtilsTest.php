@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Net\Dontdrinkandroot\Utils;
+namespace Dontdrinkandroot\Utils;
 
 class StringUtilsTest extends \PHPUnit_Framework_TestCase
 {
