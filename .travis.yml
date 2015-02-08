@@ -4,9 +4,7 @@ php:
     - 5.5
 
 before_script:
-    - cp app/config/parameters.yml.dist app/config/parameters.yml
     - composer install --dev
-    - bin/console doctrine:schema:create
 
 script:
     - bin/phpcs --standard=psr2 ./src
