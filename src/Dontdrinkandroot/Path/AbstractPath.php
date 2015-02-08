@@ -42,7 +42,7 @@ abstract class AbstractPath implements Path
     /**
      * @inheritdoc
      */
-    function isFilePath()
+    public function isFilePath()
     {
         return !$this->isDirectoryPath();
     }

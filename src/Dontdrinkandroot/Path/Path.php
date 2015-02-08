@@ -9,75 +9,75 @@ interface Path
     /**
      * @return string
      */
-    function getName();
+    public function getName();
 
     /**
      * @return bool
      */
-    function hasParentPath();
+    public function hasParentPath();
 
     /**
      * @return DirectoryPath
      */
-    function getParentPath();
+    public function getParentPath();
 
     /**
      * @param DirectoryPath $path
      *
      * @return Path
      */
-    function prepend(DirectoryPath $path);
+    public function prepend(DirectoryPath $path);
 
     /**
      * @return Path[]
      */
-    function collectPaths();
+    public function collectPaths();
 
     /**
      * @deprecated
      * @return string
      */
-    function toAbsoluteUrlString();
+    public function toAbsoluteUrlString();
 
     /**
      * @deprecated
      * @return string
      */
-    function toRelativeUrlString();
+    public function toRelativeUrlString();
 
     /**
      * @deprecated
      * @return string
      */
-    function toAbsoluteFileString();
+    public function toAbsoluteFileString();
 
     /**
      * @deprecated
      * @return string
      */
-    function toRelativeFileString();
+    public function toRelativeFileString();
 
     /**
      * @param string $separator
      *
      * @return string
      */
-    function toRelativeString($separator = '/');
+    public function toRelativeString($separator = '/');
 
     /**
      * @param string $separator
      *
      * @return string
      */
-    function toAbsoluteString($separator = '/');
+    public function toAbsoluteString($separator = '/');
 
     /**
      * @return bool
      */
-    function isFilePath();
+    public function isFilePath();
 
     /**
      * @return bool
      */
-    function isDirectoryPath();
+    public function isDirectoryPath();
 }

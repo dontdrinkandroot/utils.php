@@ -170,7 +170,7 @@ class DirectoryPath extends AbstractPath
     /**
      * @inheritdoc
      */
-    function isDirectoryPath()
+    public function isDirectoryPath()
     {
         return true;
     }

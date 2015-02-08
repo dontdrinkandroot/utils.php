@@ -84,7 +84,7 @@ class FilePath extends AbstractPath
     /**
      * @inheritdoc
      */
-    function toRelativeString($separator = '/')
+    public function toRelativeString($separator = '/')
     {
         return $this->parentPath->toRelativeString($separator) . $this->getName();
     }
@@ -92,7 +92,7 @@ class FilePath extends AbstractPath
     /**
      * @inheritdoc
      */
-    function toAbsoluteString($separator = '/')
+    public function toAbsoluteString($separator = '/')
     {
         return $this->parentPath->toAbsoluteString($separator) . $this->getName();
     }
