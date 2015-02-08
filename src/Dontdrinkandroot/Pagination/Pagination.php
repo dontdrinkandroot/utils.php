@@ -3,7 +3,6 @@
 
 namespace Dontdrinkandroot\Pagination;
 
-
 class Pagination
 {
 
@@ -55,5 +54,4 @@ class Pagination
     {
         return $this->perPage;
     }
-
 }

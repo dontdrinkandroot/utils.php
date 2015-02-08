@@ -3,7 +3,6 @@
 
 namespace Dontdrinkandroot\Path;
 
-
 abstract class AbstractPath implements Path
 {
 

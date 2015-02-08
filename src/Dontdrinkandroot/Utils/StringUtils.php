@@ -3,7 +3,6 @@
 
 namespace Dontdrinkandroot\Utils;
 
-
 class StringUtils
 {
 
@@ -62,5 +61,4 @@ class StringUtils
 
         return substr($str, $length - 1, 1);
     }
-
 }

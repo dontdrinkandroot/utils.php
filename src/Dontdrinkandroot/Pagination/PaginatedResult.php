@@ -3,7 +3,6 @@
 
 namespace Dontdrinkandroot\Pagination;
 
-
 class PaginatedResult
 {
 
@@ -38,6 +37,4 @@ class PaginatedResult
     {
         return $this->results;
     }
-
-
 }

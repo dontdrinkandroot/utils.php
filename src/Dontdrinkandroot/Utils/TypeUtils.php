@@ -15,8 +15,7 @@ class TypeUtils
     public static function integerOrNull($value)
     {
         $intVal = intval($value);
-        if (
-            is_object($value)
+        if (is_object($value)
             || strval($intVal) != $value
             || is_bool($value)
             || is_null($value)
