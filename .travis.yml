@@ -2,10 +2,14 @@ language: php
 
 php:
     - 5.5
+    - hhvm
 
 before_script:
-    - composer install --dev
+    - composer install
 
 script:
-    - bin/phpcs --standard=psr2 ./src
-    - bin/phpunit
+    - bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
