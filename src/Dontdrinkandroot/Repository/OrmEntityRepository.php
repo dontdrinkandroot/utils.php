@@ -5,12 +5,10 @@ namespace Dontdrinkandroot\Repository;
 use Doctrine\ORM\EntityRepository;
 use Dontdrinkandroot\Entity\EntityInterface;
 
-class OrmEntityRepository extends EntityRepository
+class OrmEntityRepository extends EntityRepository implements EntityRepositoryInterface
 {
     /**
-     * @param  EntityInterface $entity
-     *
-     * @return EntityInterface
+     * {@inheritdoc}
      */
     public function save(EntityInterface $entity)
     {
@@ -25,7 +23,7 @@ class OrmEntityRepository extends EntityRepository
     }
 
     /**
-     * @param EntityInterface $entity
+     * {@inheritdoc}
      */
     public function remove(EntityInterface $entity)
     {
@@ -34,7 +32,7 @@ class OrmEntityRepository extends EntityRepository
     }
 
     /**
-     * @param mixed $id
+     * {@inheritdoc}
      */
     public function removeById($id)
     {
@@ -43,7 +41,10 @@ class OrmEntityRepository extends EntityRepository
         $this->remove($entity);
     }
 
-    public function deleteAll()
+    /**
+     * {@inheritdoc}
+     */
+    public function removeAll()
     {
         $queryBuilder = $this->createQueryBuilder('entity');
 
@@ -52,6 +53,14 @@ class OrmEntityRepository extends EntityRepository
         $query = $queryBuilder->getQuery();
 
         $query->execute();
+    }
+
+    /**
+     * @deprecated
+     */
+    public function deleteAll()
+    {
+        $this->removeAll();
     }
 
     public function beginTransation()
