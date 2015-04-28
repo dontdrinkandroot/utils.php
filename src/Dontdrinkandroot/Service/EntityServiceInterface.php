@@ -3,8 +3,8 @@
 
 namespace Dontdrinkandroot\Service;
 
-use Doctrine\ORM\EntityNotFoundException;
 use Dontdrinkandroot\Entity\EntityInterface;
+use Dontdrinkandroot\Exception\NoResultFoundException;
 
 interface EntityServiceInterface
 {
@@ -26,7 +26,7 @@ interface EntityServiceInterface
      *
      * @return mixed
      *
-     * @throws EntityNotFoundException
+     * @throws NoResultFoundException
      */
     public function fetchById($id);
 
