@@ -12,7 +12,7 @@ abstract class AbstractPath implements Path
     protected $parentPath;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasParentPath()
     {
@@ -20,7 +20,7 @@ abstract class AbstractPath implements Path
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getParentPath()
     {
@@ -28,7 +28,7 @@ abstract class AbstractPath implements Path
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function collectPaths()
     {
@@ -40,20 +40,26 @@ abstract class AbstractPath implements Path
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isFilePath()
     {
         return !$this->isDirectoryPath();
     }
 
+    /**
+     * @param DirectoryPath $path
+     */
     public function setParentPath(DirectoryPath $path)
     {
         $this->parentPath = $path;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        return $this->toAbsoluteUrlString();
+        return $this->toAbsoluteString();
     }
 }

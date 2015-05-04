@@ -8,10 +8,21 @@ use Dontdrinkandroot\Utils\StringUtils;
 class FilePath extends AbstractPath
 {
 
+    /**
+     * @var string
+     */
     protected $fileName;
 
+    /**
+     * @var string
+     */
     protected $extension;
 
+    /**
+     * @param string $name
+     *
+     * @throws \Exception
+     */
     public function __construct($name)
     {
         if (empty($name)) {
@@ -33,7 +44,7 @@ class FilePath extends AbstractPath
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -47,7 +58,7 @@ class FilePath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toAbsoluteUrlString()
     {
@@ -56,7 +67,7 @@ class FilePath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toRelativeUrlString()
     {
@@ -65,7 +76,7 @@ class FilePath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toAbsoluteFileString()
     {
@@ -74,7 +85,7 @@ class FilePath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toRelativeFileString()
     {
@@ -82,7 +93,7 @@ class FilePath extends AbstractPath
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toRelativeString($separator = '/')
     {
@@ -90,7 +101,7 @@ class FilePath extends AbstractPath
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toAbsoluteString($separator = '/')
     {
@@ -98,26 +109,32 @@ class FilePath extends AbstractPath
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function prepend(DirectoryPath $path)
     {
-        return FilePath::parse($path->toAbsoluteUrlString() . $this->toAbsoluteUrlString());
+        return FilePath::parse($path->toAbsoluteString() . $this->toAbsoluteString());
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isDirectoryPath()
     {
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getExtension()
     {
         return $this->extension;
     }
 
+    /**
+     * @return string
+     */
     public function getFileName()
     {
         return $this->fileName;

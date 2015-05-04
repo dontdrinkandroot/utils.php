@@ -8,8 +8,16 @@ use Dontdrinkandroot\Utils\StringUtils;
 class DirectoryPath extends AbstractPath
 {
 
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @param string|null $name
+     *
+     * @throws \Exception
+     */
     public function __construct($name = null)
     {
         if (strpos($name, '/') !== false) {
@@ -68,7 +76,7 @@ class DirectoryPath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toAbsoluteUrlString()
     {
@@ -77,7 +85,7 @@ class DirectoryPath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toRelativeUrlString()
     {
@@ -86,7 +94,7 @@ class DirectoryPath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toAbsoluteFileString()
     {
@@ -95,7 +103,7 @@ class DirectoryPath extends AbstractPath
 
     /**
      * @deprecated
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toRelativeFileString()
     {
@@ -115,7 +123,7 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toAbsoluteString($separator = '/')
     {
@@ -127,11 +135,11 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function prepend(DirectoryPath $path)
     {
-        return DirectoryPath::parse($path->toAbsoluteUrlString() . $this->toAbsoluteUrlString());
+        return DirectoryPath::parse($path->toAbsoluteString() . $this->toAbsoluteString());
     }
 
     /**
@@ -142,6 +150,9 @@ class DirectoryPath extends AbstractPath
         return $this->name;
     }
 
+    /**
+     * @return bool
+     */
     public function isRoot()
     {
         return null === $this->parentPath && null === $this->name;
@@ -168,13 +179,19 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isDirectoryPath()
     {
         return true;
     }
 
+    /**
+     * @param string $pathString
+     *
+     * @return DirectoryPath|FilePath
+     * @throws \Exception
+     */
     public function appendPathString($pathString)
     {
         $lastPath = $this;
@@ -205,6 +222,14 @@ class DirectoryPath extends AbstractPath
         return $directoryPath;
     }
 
+    /**
+     * @param string        $pathString
+     * @param DirectoryPath $rootPath
+     * @param string        $separator
+     *
+     * @return DirectoryPath
+     * @throws \Exception
+     */
     protected static function parseDirectoryPath($pathString, DirectoryPath $rootPath, $separator = '/')
     {
         $lastPath = $rootPath;
