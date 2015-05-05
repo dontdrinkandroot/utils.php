@@ -3,7 +3,6 @@
 
 namespace Dontdrinkandroot\Path;
 
-
 class DirectoryPathTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -130,7 +129,6 @@ class DirectoryPathTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($path->isRoot());
     }
 
-
     public function testAppend()
     {
         $path = new DirectoryPath();
@@ -165,12 +163,22 @@ class DirectoryPathTest extends \PHPUnit_Framework_TestCase
             DIRECTORY_SEPARATOR . 'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
             $path->toAbsoluteFileString()
         );
+        $this->assertEquals(
+            DIRECTORY_SEPARATOR . 'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
+            $path->toAbsoluteFileSystemString()
+        );
 
         $this->assertEquals('sub/subsub/', $path->toRelativeUrlString());
         $this->assertEquals(
             'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
             $path->toRelativeFileString()
         );
+        $this->assertEquals(
+            'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
+            $path->toRelativeFileSystemString()
+        );
+
+        $this->assertEquals('/sub/subsub/', (string)$path);
     }
 
     public function testComplicatedPath()
