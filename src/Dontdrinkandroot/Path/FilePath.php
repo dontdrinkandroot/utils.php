@@ -57,42 +57,6 @@ class FilePath extends AbstractPath
     }
 
     /**
-     * @deprecated
-     * {@inheritdoc}
-     */
-    public function toAbsoluteUrlString()
-    {
-        return $this->toAbsoluteString('/');
-    }
-
-    /**
-     * @deprecated
-     * {@inheritdoc}
-     */
-    public function toRelativeUrlString()
-    {
-        return $this->toRelativeString('/');
-    }
-
-    /**
-     * @deprecated
-     * {@inheritdoc}
-     */
-    public function toAbsoluteFileString()
-    {
-        return $this->toAbsoluteString(DIRECTORY_SEPARATOR);
-    }
-
-    /**
-     * @deprecated
-     * {@inheritdoc}
-     */
-    public function toRelativeFileString()
-    {
-        return $this->toRelativeString(DIRECTORY_SEPARATOR);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toRelativeString($separator = '/')

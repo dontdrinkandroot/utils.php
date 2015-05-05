@@ -33,10 +33,10 @@ abstract class AbstractPath implements Path
     public function collectPaths()
     {
         if (!$this->hasParentPath()) {
-            return array($this);
+            return [$this];
         }
 
-        return array_merge($this->getParentPath()->collectPaths(), array($this));
+        return array_merge($this->getParentPath()->collectPaths(), [$this]);
     }
 
     /**
@@ -45,6 +45,56 @@ abstract class AbstractPath implements Path
     public function isFilePath()
     {
         return !$this->isDirectoryPath();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toAbsoluteUrlString()
+    {
+        return $this->toAbsoluteString('/');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toRelativeUrlString()
+    {
+        return $this->toRelativeString('/');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toAbsoluteFileSystemString()
+    {
+        return $this->toAbsoluteString(DIRECTORY_SEPARATOR);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toRelativeFileSystemString()
+    {
+        return $this->toRelativeString(DIRECTORY_SEPARATOR);
+    }
+
+    /**
+     * @deprecated
+     * {@inheritdoc}
+     */
+    public function toAbsoluteFileString()
+    {
+        return $this->toAbsoluteString(DIRECTORY_SEPARATOR);
+    }
+
+    /**
+     * @deprecated
+     * {@inheritdoc}
+     */
+    public function toRelativeFileString()
+    {
+        return $this->toRelativeString(DIRECTORY_SEPARATOR);
     }
 
     /**

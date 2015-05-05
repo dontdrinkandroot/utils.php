@@ -34,16 +34,24 @@ interface Path
     public function collectPaths();
 
     /**
-     * @deprecated
      * @return string
      */
     public function toAbsoluteUrlString();
 
     /**
-     * @deprecated
      * @return string
      */
     public function toRelativeUrlString();
+
+    /**
+     * @return string
+     */
+    public function toAbsoluteFileSystemString();
+
+    /**
+     * @return string
+     */
+    public function toRelativeFileSystemString();
 
     /**
      * @deprecated
