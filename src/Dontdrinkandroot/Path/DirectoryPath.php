@@ -158,6 +158,10 @@ class DirectoryPath extends AbstractPath
      */
     public function appendPathString($pathString)
     {
+        if (empty($pathString)) {
+            return clone $this;
+        }
+
         $lastPath = $this;
 
         $filePart = null;
