@@ -107,6 +107,20 @@ class FlexDate
     }
 
     /**
+     * @¶eturn \DateTime
+     */
+    public function toDateTime()
+    {
+        $dateTime = new \DateTime();
+        $inferredYear = $this->year !== null ? $this->year : 0;
+        $inferredMonth = $this->month !== null ? $this->month : 1;
+        $inferredDay = $this->day !== null ? $this->day : 1;
+        $dateTime->setDate($inferredYear, $inferredMonth, $inferredDay);
+
+        return $dateTime;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __toString()
@@ -116,10 +130,12 @@ class FlexDate
             $string .= $this->year;
         }
         if (null !== $this->month) {
-            $string .= $this->month;
+            $string .= '-';
+            $string .= str_pad($this->month, 2, '0', STR_PAD_LEFT);
         }
         if (null !== $this->day) {
-            $string .= $this->day;
+            $string .= '-';
+            $string .= str_pad($this->day, 2, '0', STR_PAD_LEFT);
         }
 
         return $string;
