@@ -81,4 +81,47 @@ class FlexDate
     {
         $this->day = $day;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasValue()
+    {
+        return null !== $this->year || null !== $this->month || null !== $this->day;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCompleteDate()
+    {
+        return null !== $this->year && null !== $this->month && null !== $this->day;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValidDate()
+    {
+        return checkdate($this->month, $this->day, $this->year);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        $string = '';
+        if (null !== $this->year) {
+            $string .= $this->year;
+        }
+        if (null !== $this->month) {
+            $string .= $this->month;
+        }
+        if (null !== $this->day) {
+            $string .= $this->day;
+        }
+
+        return $string;
+    }
 }
