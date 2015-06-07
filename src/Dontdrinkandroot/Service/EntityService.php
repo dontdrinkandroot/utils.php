@@ -13,7 +13,7 @@ class EntityService implements EntityServiceInterface
     /**
      * @var EntityRepositoryInterface
      */
-    private $repository;
+    protected $repository;
 
     /**
      * @param EntityRepositoryInterface $repository
