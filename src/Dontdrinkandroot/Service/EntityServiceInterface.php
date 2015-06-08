@@ -5,6 +5,7 @@ namespace Dontdrinkandroot\Service;
 
 use Dontdrinkandroot\Entity\EntityInterface;
 use Dontdrinkandroot\Exception\NoResultFoundException;
+use Dontdrinkandroot\Pagination\PaginatedResult;
 
 interface EntityServiceInterface
 {
@@ -13,6 +14,14 @@ interface EntityServiceInterface
      * @return EntityInterface[]
      */
     public function findAll();
+
+    /**
+     * @param int $page
+     * @param int $perPage
+     *
+     * @return PaginatedResult
+     */
+    public function findAllPaginated($page, $perPage);
 
     /**
      * @param mixed $id

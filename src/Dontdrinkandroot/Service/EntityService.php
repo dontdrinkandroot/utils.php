@@ -84,4 +84,12 @@ class EntityService implements EntityServiceInterface
     {
         $this->repository->removeAll();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllPaginated($page, $perPage)
+    {
+        return $this->repository->findAllPaginated($page, $perPage);
+    }
 }

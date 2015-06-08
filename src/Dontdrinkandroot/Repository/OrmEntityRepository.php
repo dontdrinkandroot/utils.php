@@ -3,7 +3,10 @@
 namespace Dontdrinkandroot\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Dontdrinkandroot\Entity\EntityInterface;
+use Dontdrinkandroot\Pagination\PaginatedResult;
+use Dontdrinkandroot\Pagination\Pagination;
 
 class OrmEntityRepository extends EntityRepository implements EntityRepositoryInterface
 {
@@ -61,6 +64,57 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     public function deleteAll()
     {
         $this->removeAll();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllPaginated($page, $perPage)
+    {
+        $this->beginTransation();
+        try {
+            $countQueryBuilder = $this->getEntityManager()->createQueryBuilder();
+            $countQueryBuilder
+                ->select('count(*)')
+                ->from($this->getEntityName(), 'entity');
+
+            $countQueryBuilder = $this->buildFindAllQuery($countQueryBuilder);
+
+            $countQuery = $countQueryBuilder->getQuery();
+            $total = $countQuery->getSingleScalarResult();
+
+            $findQueryBuilder = $this->getEntityManager()->createQueryBuilder();
+            $findQueryBuilder
+                ->select('entity')
+                ->from($this->getEntityName(), 'entity');
+
+            $findQueryBuilder = $this->buildFindAllQuery($findQueryBuilder);
+
+            $findQuery = $findQueryBuilder->getQuery();
+            $findQuery->setFirstResult(($page - 1) * $perPage);
+            $findQuery->setMaxResults($perPage);
+            $result = $findQuery->getResult();
+
+            $pagination = new Pagination($page, $perPage, $total);
+            $paginatedResult = new PaginatedResult($pagination, $result);
+
+            $this->commitTransaction();
+
+            return $paginatedResult;
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
+    }
+
+    /**
+     * @param QueryBuilder $countQueryBuilder
+     *
+     * @return QueryBuilder
+     */
+    protected function buildFindAllQuery(QueryBuilder $countQueryBuilder)
+    {
+        return $countQueryBuilder;
     }
 
     public function beginTransation()
