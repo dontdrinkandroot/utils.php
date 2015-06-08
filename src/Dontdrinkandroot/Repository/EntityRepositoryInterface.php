@@ -33,12 +33,13 @@ interface EntityRepositoryInterface extends ObjectRepository
     public function removeAll();
 
     /**
-     * @param int $page
-     * @param int $perPage
+     * @param int        $page
+     * @param int        $perPage
+     * @param array      $criteria
+     * @param array|null $orderBy
      *
      * @return PaginatedResult
-     * @throws \Exception
      */
-    public function findAllPaginated($page, $perPage);
+    public function findPaginatedBy($page = 1, $perPage = 10, array $criteria = [], array $orderBy = null);
 
 }

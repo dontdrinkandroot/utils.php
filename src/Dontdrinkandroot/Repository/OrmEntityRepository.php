@@ -3,7 +3,6 @@
 namespace Dontdrinkandroot\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Dontdrinkandroot\Entity\EntityInterface;
 use Dontdrinkandroot\Pagination\PaginatedResult;
 use Dontdrinkandroot\Pagination\Pagination;
@@ -69,34 +68,17 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function findAllPaginated($page, $perPage)
+    public function findPaginatedBy($page = 1, $perPage = 10, array $criteria = [], array $orderBy = null)
     {
+        $persister = $this->getEntityManager()->getUnitOfWork()->getEntityPersister($this->_entityName);
+
         $this->beginTransation();
         try {
-            $countQueryBuilder = $this->getEntityManager()->createQueryBuilder();
-            $countQueryBuilder
-                ->select('count(*)')
-                ->from($this->getEntityName(), 'entity');
-
-            $countQueryBuilder = $this->buildFindAllQuery($countQueryBuilder);
-
-            $countQuery = $countQueryBuilder->getQuery();
-            $total = $countQuery->getSingleScalarResult();
-
-            $findQueryBuilder = $this->getEntityManager()->createQueryBuilder();
-            $findQueryBuilder
-                ->select('entity')
-                ->from($this->getEntityName(), 'entity');
-
-            $findQueryBuilder = $this->buildFindAllQuery($findQueryBuilder);
-
-            $findQuery = $findQueryBuilder->getQuery();
-            $findQuery->setFirstResult(($page - 1) * $perPage);
-            $findQuery->setMaxResults($perPage);
-            $result = $findQuery->getResult();
+            $total = $persister->count($criteria);
+            $results = $persister->loadAll($criteria, $orderBy, $perPage, ($page - 1) * $perPage);
 
             $pagination = new Pagination($page, $perPage, $total);
-            $paginatedResult = new PaginatedResult($pagination, $result);
+            $paginatedResult = new PaginatedResult($pagination, $results);
 
             $this->commitTransaction();
 
@@ -105,16 +87,6 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $this->rollbackTransaction();
             throw $e;
         }
-    }
-
-    /**
-     * @param QueryBuilder $countQueryBuilder
-     *
-     * @return QueryBuilder
-     */
-    protected function buildFindAllQuery(QueryBuilder $countQueryBuilder)
-    {
-        return $countQueryBuilder;
     }
 
     public function beginTransation()
