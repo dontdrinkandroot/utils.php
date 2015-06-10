@@ -12,20 +12,23 @@ interface EntityRepositoryInterface extends ObjectRepository
 
     /**
      * @param EntityInterface $entity
+     * @param bool            $flush
      *
      * @return EntityInterface
      */
-    public function save(EntityInterface $entity);
+    public function save(EntityInterface $entity, $flush = false);
 
     /**
      * @param mixed $id
+     * @param bool  $flush
      */
-    public function removeById($id);
+    public function removeById($id, $flush = false);
 
     /**
      * @param EntityInterface $entity
+     * @param bool            $flush
      */
-    public function remove(EntityInterface $entity);
+    public function remove(EntityInterface $entity, $flush = false);
 
     /**
      * Removes all entities managed by the repository.

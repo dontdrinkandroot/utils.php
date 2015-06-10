@@ -12,14 +12,17 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function save(EntityInterface $entity)
+    public function save(EntityInterface $entity, $flush = false)
     {
         if (null === $entity->getId()) {
             $this->_em->persist($entity);
         } else {
             $this->_em->merge($entity);
         }
-        $this->_em->flush();
+
+        if ($flush) {
+            $this->_em->flush();
+        }
 
         return $entity;
     }
@@ -27,20 +30,22 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function remove(EntityInterface $entity)
+    public function remove(EntityInterface $entity, $flush = false)
     {
         $this->_em->remove($entity);
-        $this->_em->flush();
+        if ($flush) {
+            $this->_em->flush();
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function removeById($id)
+    public function removeById($id, $flush = false)
     {
         /** @var EntityInterface $entity */
         $entity = $this->find($id);
-        $this->remove($entity);
+        $this->remove($entity, $flush);
     }
 
     /**
