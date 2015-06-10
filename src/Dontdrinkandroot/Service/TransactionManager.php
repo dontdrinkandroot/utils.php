@@ -35,9 +35,11 @@ class TransactionManager
 
     /**
      * @param callable $func
+     *
+     * @return mixed
      */
     public function transactional($func)
     {
-        $this->entityManager->transactional($func);
+        return $this->entityManager->transactional($func);
     }
 }
