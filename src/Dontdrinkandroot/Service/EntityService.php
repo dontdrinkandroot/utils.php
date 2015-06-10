@@ -7,7 +7,7 @@ use Dontdrinkandroot\Entity\EntityInterface;
 use Dontdrinkandroot\Exception\NoResultFoundException;
 use Dontdrinkandroot\Repository\EntityRepositoryInterface;
 
-class EntityService implements EntityServiceInterface
+class EntityService extends AbstractService implements EntityServiceInterface
 {
 
     /**
