@@ -12,7 +12,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function save(EntityInterface $entity, $flush = false)
+    public function save(EntityInterface $entity, $flush = true)
     {
         $this->beginTransaction();
         try {
@@ -38,7 +38,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function remove(EntityInterface $entity, $flush = false)
+    public function remove(EntityInterface $entity, $flush = true)
     {
         $this->beginTransaction();
         try {
@@ -56,7 +56,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function removeById($id, $flush = false)
+    public function removeById($id, $flush = true)
     {
         $this->beginTransaction();
         try {
@@ -73,7 +73,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function removeAll()
+    public function removeAll($flush = true)
     {
         $this->beginTransaction();
         try {
@@ -84,6 +84,9 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $query = $queryBuilder->getQuery();
 
             $query->execute();
+            if ($flush) {
+                $this->getEntityManager()->flush();
+            }
             $this->commitTransaction();
         } catch (\Exception $e) {
             $this->rollbackTransaction();
@@ -94,11 +97,14 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * @deprecated
      */
-    public function deleteAll()
+    public function deleteAll($flush = true)
     {
         $this->beginTransaction();
         try {
             $this->removeAll();
+            if ($flush) {
+                $this->getEntityManager()->flush();
+            }
             $this->commitTransaction();
         } catch (\Exception $e) {
             $this->rollbackTransaction();

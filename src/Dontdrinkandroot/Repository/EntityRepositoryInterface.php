@@ -16,24 +16,26 @@ interface EntityRepositoryInterface extends ObjectRepository
      *
      * @return EntityInterface
      */
-    public function save(EntityInterface $entity, $flush = false);
+    public function save(EntityInterface $entity, $flush = true);
 
     /**
      * @param mixed $id
      * @param bool  $flush
      */
-    public function removeById($id, $flush = false);
+    public function removeById($id, $flush = true);
 
     /**
      * @param EntityInterface $entity
      * @param bool            $flush
      */
-    public function remove(EntityInterface $entity, $flush = false);
+    public function remove(EntityInterface $entity, $flush = true);
 
     /**
+     * @param bool $flush
+     *
      * Removes all entities managed by the repository.
      */
-    public function removeAll();
+    public function removeAll($flush = true);
 
     /**
      * @param int        $page
@@ -44,5 +46,4 @@ interface EntityRepositoryInterface extends ObjectRepository
      * @return PaginatedResult
      */
     public function findPaginatedBy($page = 1, $perPage = 10, array $criteria = [], array $orderBy = null);
-
 }
