@@ -77,7 +77,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     {
         $persister = $this->getEntityManager()->getUnitOfWork()->getEntityPersister($this->_entityName);
 
-        $this->beginTransation();
+        $this->getEntityManager()->beginTransaction();
         try {
             $total = $persister->count($criteria);
             $results = $persister->loadAll($criteria, $orderBy, $perPage, ($page - 1) * $perPage);
@@ -85,27 +85,12 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $pagination = new Pagination($page, $perPage, $total);
             $paginatedResult = new PaginatedResult($pagination, $results);
 
-            $this->commitTransaction();
+            $this->getEntityManager()->commit();
 
             return $paginatedResult;
         } catch (\Exception $e) {
-            $this->rollbackTransaction();
+            $this->getEntityManager()->rollback();
             throw $e;
         }
-    }
-
-    public function beginTransation()
-    {
-        $this->getEntityManager()->beginTransaction();
-    }
-
-    public function commitTransaction()
-    {
-        $this->getEntityManager()->commit();
-    }
-
-    public function rollbackTransaction()
-    {
-        $this->getEntityManager()->rollback();
     }
 }

@@ -92,4 +92,12 @@ class EntityService implements EntityServiceInterface
     {
         return $this->repository->findPaginatedBy($page, $perPage);
     }
+
+    /**
+     * @return EntityRepositoryInterface
+     */
+    protected function getRepository()
+    {
+        return $this->repository;
+    }
 }
