@@ -14,14 +14,22 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function save(EntityInterface $entity, $flush = false)
     {
-        if (null === $entity->getId()) {
-            $this->_em->persist($entity);
-        } else {
-            $this->_em->merge($entity);
-        }
+        try {
+            $this->beginTransation();
 
-        if ($flush) {
-            $this->_em->flush();
+            if (null === $entity->getId()) {
+                $this->_em->persist($entity);
+            } else {
+                $this->_em->merge($entity);
+            }
+
+            if ($flush) {
+                $this->_em->flush();
+            }
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
         }
 
         return $entity;
@@ -32,9 +40,16 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function remove(EntityInterface $entity, $flush = false)
     {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
+        try {
+            $this->beginTransation();
+            $this->_em->remove($entity);
+            if ($flush) {
+                $this->_em->flush();
+            }
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
         }
     }
 
@@ -43,9 +58,16 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function removeById($id, $flush = false)
     {
-        /** @var EntityInterface $entity */
-        $entity = $this->find($id);
-        $this->remove($entity, $flush);
+        try {
+            $this->beginTransation();
+            /** @var EntityInterface $entity */
+            $entity = $this->find($id);
+            $this->remove($entity, $flush);
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
     }
 
     /**
@@ -53,13 +75,19 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function removeAll()
     {
-        $queryBuilder = $this->createQueryBuilder('entity');
+        try {
+            $queryBuilder = $this->createQueryBuilder('entity');
 
-        $queryBuilder->delete();
+            $queryBuilder->delete();
 
-        $query = $queryBuilder->getQuery();
+            $query = $queryBuilder->getQuery();
 
-        $query->execute();
+            $query->execute();
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
     }
 
     /**
@@ -67,7 +95,13 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function deleteAll()
     {
-        $this->removeAll();
+        try {
+            $this->removeAll();
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
     }
 
     /**
@@ -92,5 +126,30 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $this->getEntityManager()->rollback();
             throw $e;
         }
+    }
+
+    public function beginTransation()
+    {
+        $this->getEntityManager()->beginTransaction();
+    }
+
+    public function commitTransaction()
+    {
+        $this->getEntityManager()->commit();
+    }
+
+    public function rollbackTransaction()
+    {
+        $this->getEntityManager()->rollback();
+    }
+
+    /**
+     * @param callable $callable
+     *
+     * @return mixed The non-empty value returned from the closure or true instead.
+     */
+    public function transactional($callable)
+    {
+        $this->getEntityManager()->transactional($callable);
     }
 }
