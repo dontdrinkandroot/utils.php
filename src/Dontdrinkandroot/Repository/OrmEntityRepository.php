@@ -14,8 +14,8 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function save(EntityInterface $entity, $flush = false)
     {
+        $this->beginTransaction();
         try {
-            $this->beginTransation();
 
             if (null === $entity->getId()) {
                 $this->_em->persist($entity);
@@ -40,8 +40,8 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function remove(EntityInterface $entity, $flush = false)
     {
+        $this->beginTransaction();
         try {
-            $this->beginTransation();
             $this->_em->remove($entity);
             if ($flush) {
                 $this->_em->flush();
@@ -58,8 +58,8 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function removeById($id, $flush = false)
     {
+        $this->beginTransaction();
         try {
-            $this->beginTransation();
             /** @var EntityInterface $entity */
             $entity = $this->find($id);
             $this->remove($entity, $flush);
@@ -75,6 +75,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function removeAll()
     {
+        $this->beginTransaction();
         try {
             $queryBuilder = $this->createQueryBuilder('entity');
 
@@ -95,6 +96,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function deleteAll()
     {
+        $this->beginTransaction();
         try {
             $this->removeAll();
             $this->commitTransaction();
@@ -111,7 +113,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     {
         $persister = $this->getEntityManager()->getUnitOfWork()->getEntityPersister($this->_entityName);
 
-        $this->getEntityManager()->beginTransaction();
+        $this->beginTransaction();
         try {
             $total = $persister->count($criteria);
             $results = $persister->loadAll($criteria, $orderBy, $perPage, ($page - 1) * $perPage);
@@ -119,16 +121,16 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $pagination = new Pagination($page, $perPage, $total);
             $paginatedResult = new PaginatedResult($pagination, $results);
 
-            $this->getEntityManager()->commit();
+            $this->commitTransaction();
 
             return $paginatedResult;
         } catch (\Exception $e) {
-            $this->getEntityManager()->rollback();
+            $this->rollbackTransaction();
             throw $e;
         }
     }
 
-    public function beginTransation()
+    public function beginTransaction()
     {
         $this->getEntityManager()->beginTransaction();
     }
