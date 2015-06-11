@@ -14,22 +14,15 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function save(EntityInterface $entity, $flush = true)
     {
-        $this->beginTransaction();
-        try {
 
-            if (null === $entity->getId()) {
-                $this->_em->persist($entity);
-            } else {
-                $this->_em->merge($entity);
-            }
+        if (null === $entity->getId()) {
+            $this->_em->persist($entity);
+        } else {
+            $this->_em->merge($entity);
+        }
 
-            if ($flush) {
-                $this->_em->flush();
-            }
-            $this->commitTransaction();
-        } catch (\Exception $e) {
-            $this->rollbackTransaction();
-            throw $e;
+        if ($flush) {
+            $this->_em->flush();
         }
 
         return $entity;
@@ -40,16 +33,9 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function remove(EntityInterface $entity, $flush = true)
     {
-        $this->beginTransaction();
-        try {
-            $this->_em->remove($entity);
-            if ($flush) {
-                $this->_em->flush();
-            }
-            $this->commitTransaction();
-        } catch (\Exception $e) {
-            $this->rollbackTransaction();
-            throw $e;
+        $this->_em->remove($entity);
+        if ($flush) {
+            $this->_em->flush();
         }
     }
 
@@ -75,22 +61,15 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function removeAll($flush = true)
     {
-        $this->beginTransaction();
-        try {
-            $queryBuilder = $this->createQueryBuilder('entity');
+        $queryBuilder = $this->createQueryBuilder('entity');
 
-            $queryBuilder->delete();
+        $queryBuilder->delete();
 
-            $query = $queryBuilder->getQuery();
+        $query = $queryBuilder->getQuery();
 
-            $query->execute();
-            if ($flush) {
-                $this->getEntityManager()->flush();
-            }
-            $this->commitTransaction();
-        } catch (\Exception $e) {
-            $this->rollbackTransaction();
-            throw $e;
+        $query->execute();
+        if ($flush) {
+            $this->getEntityManager()->flush();
         }
     }
 
@@ -99,16 +78,9 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function deleteAll($flush = true)
     {
-        $this->beginTransaction();
-        try {
-            $this->removeAll();
-            if ($flush) {
-                $this->getEntityManager()->flush();
-            }
-            $this->commitTransaction();
-        } catch (\Exception $e) {
-            $this->rollbackTransaction();
-            throw $e;
+        $this->removeAll();
+        if ($flush) {
+            $this->getEntityManager()->flush();
         }
     }
 
