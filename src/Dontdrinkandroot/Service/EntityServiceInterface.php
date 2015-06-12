@@ -13,7 +13,7 @@ interface EntityServiceInterface
     /**
      * @return EntityInterface[]
      */
-    public function findAll();
+    public function listAll();
 
     /**
      * @param int $page
@@ -21,7 +21,7 @@ interface EntityServiceInterface
      *
      * @return PaginatedResult
      */
-    public function findAllPaginated($page, $perPage);
+    public function listPaginated($page, $perPage);
 
     /**
      * @param mixed $id

@@ -27,7 +27,7 @@ class EntityService extends AbstractService implements EntityServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function findAll()
+    public function listAll()
     {
         return $this->repository->findAll();
     }
@@ -88,7 +88,7 @@ class EntityService extends AbstractService implements EntityServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function findAllPaginated($page, $perPage)
+    public function listPaginated($page, $perPage)
     {
         return $this->repository->findPaginatedBy($page, $perPage);
     }
