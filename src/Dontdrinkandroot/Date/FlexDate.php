@@ -140,4 +140,27 @@ class FlexDate
 
         return $string;
     }
+
+    /**
+     * @param string $dateString
+     *
+     * @return FlexDate
+     */
+    public static function fromString($dateString)
+    {
+        $flexDate = new FlexDate();
+        $parts = explode('-', $dateString);
+        $numParts = count($parts);
+        if ($numParts > 0) {
+            $flexDate->setYear($parts[0]);
+        }
+        if ($numParts > 1) {
+            $flexDate->setMonth($parts[1]);
+        }
+        if ($numParts > 2) {
+            $flexDate->setDay($parts[2]);
+        }
+
+        return $flexDate;
+    }
 }
