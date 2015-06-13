@@ -108,6 +108,19 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function countAll()
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('count(entity)')
+            ->from($this->getClassName(), 'entity');
+
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
     public function beginTransaction()
     {
         $this->getEntityManager()->beginTransaction();

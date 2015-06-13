@@ -46,4 +46,9 @@ interface EntityRepositoryInterface extends ObjectRepository
      * @return PaginatedResult
      */
     public function findPaginatedBy($page = 1, $perPage = 10, array $criteria = [], array $orderBy = null);
+
+    /**
+     * @return int
+     */
+    public function countAll();
 }
