@@ -74,4 +74,44 @@ class FlexDateTest extends \PHPUnit_Framework_TestCase
         $dateTime = $flexDate->toDateTime();
         $this->assertEquals('20150303', $dateTime->format('Ymd'));
     }
+
+    public function testIsValid()
+    {
+        $flexDate = new FlexDate();
+        $flexDate->setMonth(2);
+        $this->assertFalse($flexDate->isValid());
+
+        $flexDate = new FlexDate();
+        $flexDate->setDay(2);
+        $this->assertFalse($flexDate->isValid());
+    }
+
+    public function testFromString()
+    {
+        $flexDate = FlexDate::fromString('');
+        $this->assertNull($flexDate->getYear());
+        $this->assertNull($flexDate->getMonth());
+        $this->assertNull($flexDate->getDay());
+        $this->assertTrue($flexDate->isValid());
+
+        $flexDate = FlexDate::fromString('2015');
+        $this->assertEquals(2015, $flexDate->getYear());
+        $this->assertNull($flexDate->getMonth());
+        $this->assertNull($flexDate->getDay());
+        $this->assertTrue($flexDate->isValid());
+
+        $flexDate = FlexDate::fromString('2015-03');
+        $this->assertEquals(2015, $flexDate->getYear());
+        $this->assertEquals(3, $flexDate->getMonth());
+        $this->assertNull($flexDate->getDay());
+        $this->assertTrue($flexDate->isValid());
+
+        $flexDate = FlexDate::fromString('2015-03-02');
+        $this->assertEquals(2015, $flexDate->getYear());
+        $this->assertEquals(3, $flexDate->getMonth());
+        $this->assertEquals(2, $flexDate->getDay());
+        $this->assertTrue($flexDate->isCompleteDate());
+        $this->assertTrue($flexDate->isValidDate());
+        $this->assertTrue($flexDate->isValid());
+    }
 }

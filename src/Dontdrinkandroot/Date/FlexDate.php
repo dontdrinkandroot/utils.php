@@ -101,6 +101,37 @@ class FlexDate
     /**
      * @return bool
      */
+    public function isValid()
+    {
+        try {
+            $this->assertValid();
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function assertValid()
+    {
+        if (null !== $this->day && null === $this->month) {
+            throw new \Exception('Day set, but no month');
+        }
+
+        if (null !== $this->month && null === $this->year) {
+            throw new \Exception('Month, but no year');
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
     public function isValidDate()
     {
         return checkdate($this->month, $this->day, $this->year);
@@ -149,16 +180,20 @@ class FlexDate
     public static function fromString($dateString)
     {
         $flexDate = new FlexDate();
+        if (empty($dateString)) {
+            return $flexDate;
+        }
+
         $parts = explode('-', $dateString);
         $numParts = count($parts);
         if ($numParts > 0) {
-            $flexDate->setYear($parts[0]);
+            $flexDate->setYear((int)$parts[0]);
         }
         if ($numParts > 1) {
-            $flexDate->setMonth($parts[1]);
+            $flexDate->setMonth((int)$parts[1]);
         }
         if ($numParts > 2) {
-            $flexDate->setDay($parts[2]);
+            $flexDate->setDay((int)$parts[2]);
         }
 
         return $flexDate;
