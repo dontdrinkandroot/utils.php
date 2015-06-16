@@ -54,18 +54,6 @@ interface Path
     public function toRelativeFileSystemString();
 
     /**
-     * @deprecated
-     * @return string
-     */
-    public function toAbsoluteFileString();
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function toRelativeFileString();
-
-    /**
      * @param string $separator
      *
      * @return string

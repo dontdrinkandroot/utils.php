@@ -78,7 +78,7 @@ class DirectoryPathTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($path->hasParentPath());
         $this->assertEquals('/', $path->toAbsoluteUrlString());
-        $this->assertEquals(DIRECTORY_SEPARATOR, $path->toAbsoluteFileString());
+        $this->assertEquals(DIRECTORY_SEPARATOR, $path->toAbsoluteFileSystemString());
         $this->assertNull($path->getName());
         $this->assertTrue($path->isRoot());
     }
@@ -161,7 +161,7 @@ class DirectoryPathTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/sub/subsub/', $path->toAbsoluteUrlString());
         $this->assertEquals(
             DIRECTORY_SEPARATOR . 'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
-            $path->toAbsoluteFileString()
+            $path->toAbsoluteFileSystemString()
         );
         $this->assertEquals(
             DIRECTORY_SEPARATOR . 'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
@@ -171,7 +171,7 @@ class DirectoryPathTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('sub/subsub/', $path->toRelativeUrlString());
         $this->assertEquals(
             'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
-            $path->toRelativeFileString()
+            $path->toRelativeFileSystemString()
         );
         $this->assertEquals(
             'sub' . DIRECTORY_SEPARATOR . 'subsub' . DIRECTORY_SEPARATOR,
