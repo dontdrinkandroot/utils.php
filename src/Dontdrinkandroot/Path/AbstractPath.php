@@ -80,24 +80,6 @@ abstract class AbstractPath implements Path
     }
 
     /**
-     * @deprecated
-     * {@inheritdoc}
-     */
-    public function toAbsoluteFileString()
-    {
-        return $this->toAbsoluteString(DIRECTORY_SEPARATOR);
-    }
-
-    /**
-     * @deprecated
-     * {@inheritdoc}
-     */
-    public function toRelativeFileString()
-    {
-        return $this->toRelativeString(DIRECTORY_SEPARATOR);
-    }
-
-    /**
      * @param DirectoryPath $path
      */
     public function setParentPath(DirectoryPath $path)

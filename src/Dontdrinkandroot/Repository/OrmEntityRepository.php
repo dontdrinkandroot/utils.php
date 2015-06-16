@@ -74,17 +74,6 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     }
 
     /**
-     * @deprecated
-     */
-    public function deleteAll($flush = true)
-    {
-        $this->removeAll();
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function findPaginatedBy($page = 1, $perPage = 10, array $criteria = [], array $orderBy = null)
