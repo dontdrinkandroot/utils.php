@@ -25,4 +25,19 @@ class TypeUtils
 
         return $intVal;
     }
+
+    /**
+     * @param int|float $num1
+     * @param int|float $num2
+     *
+     * @return int
+     */
+    public static function compareNumbers($num1, $num2)
+    {
+        if ($num1 == $num2) {
+            return 0;
+        }
+
+        return ($num1 < $num2) ? -1 : 1;
+    }
 }
