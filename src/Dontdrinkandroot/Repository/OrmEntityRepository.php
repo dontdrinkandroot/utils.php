@@ -59,18 +59,39 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function removeAll($flush = true)
+    public function removeAll($flush = true, $iterate = true)
     {
-        $queryBuilder = $this->createQueryBuilder('entity');
-
-        $queryBuilder->delete();
-
-        $query = $queryBuilder->getQuery();
-
-        $query->execute();
+        if ($iterate) {
+            $this->removeAllByIterating();
+        } else {
+            $this->removeAllByQuery();
+        }
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    protected function removeAllByIterating()
+    {
+        $this->beginTransaction();
+        try {
+            $entities = $this->findAll();
+            foreach ($entities as $entity) {
+                $this->remove($entity, false);
+            }
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
+    }
+
+    protected function removeAllByQuery()
+    {
+        $queryBuilder = $this->createQueryBuilder('entity');
+        $queryBuilder->delete();
+        $query = $queryBuilder->getQuery();
+        $query->execute();
     }
 
     /**

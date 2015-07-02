@@ -32,10 +32,11 @@ interface EntityRepositoryInterface extends ObjectRepository
 
     /**
      * @param bool $flush
+     * @param bool $iterate Iterate over each entity so all triggers are called.
      *
      * Removes all entities managed by the repository.
      */
-    public function removeAll($flush = true);
+    public function removeAll($flush = true, $iterate = true);
 
     /**
      * @param int        $page
