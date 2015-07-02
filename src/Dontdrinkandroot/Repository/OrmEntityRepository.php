@@ -71,13 +71,19 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
         }
     }
 
-    protected function removeAllByIterating()
+    protected function removeAllByIterating($batchSize = 100)
     {
         $this->beginTransaction();
         try {
             $entities = $this->findAll();
+            $count = 0;
             foreach ($entities as $entity) {
                 $this->remove($entity, false);
+                $count++;
+                if ($count >= $batchSize) {
+                    $this->getEntityManager()->flush();
+                    $count = 0;
+                }
             }
             $this->commitTransaction();
         } catch (\Exception $e) {
