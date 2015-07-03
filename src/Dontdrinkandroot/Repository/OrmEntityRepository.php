@@ -31,7 +31,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function remove(EntityInterface $entity, $flush = true)
+    public function remove($entity, $flush = true)
     {
         $this->_em->remove($entity);
         if ($flush) {

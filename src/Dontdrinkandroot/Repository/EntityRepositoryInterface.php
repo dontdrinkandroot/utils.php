@@ -25,10 +25,10 @@ interface EntityRepositoryInterface extends ObjectRepository
     public function removeById($id, $flush = true);
 
     /**
-     * @param EntityInterface $entity
+     * @param mixed $entity
      * @param bool            $flush
      */
-    public function remove(EntityInterface $entity, $flush = true);
+    public function remove($entity, $flush = true);
 
     /**
      * @param bool $flush
