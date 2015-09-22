@@ -12,17 +12,22 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function save(EntityInterface $entity, $flush = true)
+    public function save($entity, $flush = true)
     {
-
-        if (null === $entity->getId()) {
-            $this->_em->persist($entity);
+        if (is_a($entity, 'Dontdrinkandroot\Entity\EntityInterface')) {
+            if (null === $entity->getId()) {
+                $this->getEntityManager()->persist($entity);
+            } else {
+                $this->getEntityManager()->merge($entity);
+            }
         } else {
-            $this->_em->merge($entity);
+            if (!$this->getEntityManager()->contains($entity)) {
+                $this->getEntityManager()->persist($entity);
+            }
         }
 
         if ($flush) {
-            $this->_em->flush();
+            $this->getEntityManager()->flush();
         }
 
         return $entity;
@@ -33,9 +38,9 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function remove($entity, $flush = true)
     {
-        $this->_em->remove($entity);
+        $this->getEntityManager()->remove($entity);
         if ($flush) {
-            $this->_em->flush();
+            $this->getEntityManager()->flush();
         }
     }
 

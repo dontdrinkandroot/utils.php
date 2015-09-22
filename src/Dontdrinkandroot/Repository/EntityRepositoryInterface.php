@@ -14,9 +14,9 @@ interface EntityRepositoryInterface extends ObjectRepository
      * @param EntityInterface $entity
      * @param bool            $flush
      *
-     * @return EntityInterface
+     * @return mixed
      */
-    public function save(EntityInterface $entity, $flush = true);
+    public function save($entity, $flush = true);
 
     /**
      * @param mixed $id
