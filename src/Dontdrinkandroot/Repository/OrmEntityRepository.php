@@ -18,7 +18,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             if (null === $entity->getId()) {
                 $this->getEntityManager()->persist($entity);
             } else {
-                $this->getEntityManager()->merge($entity);
+                $entity = $this->getEntityManager()->merge($entity);
             }
         } else {
             if (!$this->getEntityManager()->contains($entity)) {

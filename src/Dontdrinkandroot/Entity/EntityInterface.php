@@ -10,8 +10,4 @@ interface EntityInterface
      */
     public function getId();
 
-    /**
-     * @return bool
-     */
-    public function isPersisted();
 }
