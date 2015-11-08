@@ -83,6 +83,16 @@ class OrmEntityRepositoryTest extends DoctrineOrmTestCase
         $this->assertCount(1, $assignedIdExampleEntityRepository->findAll());
     }
 
+    public function testRemove()
+    {
+        $generatedIdExampleEntityRepository = $this->getGeneratedIdExampleEntityRepository();
+        $this->assertCount(3, $generatedIdExampleEntityRepository->findAll());
+        $entity = $generatedIdExampleEntityRepository->find(1);
+        $generatedIdExampleEntityRepository->remove($entity);
+        $this->assertCount(2, $generatedIdExampleEntityRepository->findAll());
+    }
+
+
     /**
      * @return GeneratedIdExampleEntityRepository
      */
