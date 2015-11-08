@@ -14,17 +14,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
      */
     public function save($entity, $flush = true)
     {
-        if (is_a($entity, 'Dontdrinkandroot\Entity\EntityInterface')) {
-            if (null === $entity->getId()) {
-                $this->getEntityManager()->persist($entity);
-            } else {
-                $entity = $this->getEntityManager()->merge($entity);
-            }
-        } else {
-            if (!$this->getEntityManager()->contains($entity)) {
-                $this->getEntityManager()->persist($entity);
-            }
-        }
+        $entity = $this->getEntityManager()->merge($entity);
 
         if ($flush) {
             $this->getEntityManager()->flush();
