@@ -10,7 +10,7 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @deprecated
      */
     public function isPersisted()
     {

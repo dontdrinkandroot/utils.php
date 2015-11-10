@@ -92,6 +92,38 @@ class OrmEntityRepositoryTest extends DoctrineOrmTestCase
         $this->assertCount(2, $generatedIdExampleEntityRepository->findAll());
     }
 
+    public function testRemoveAllByIterating()
+    {
+        $generatedIdExampleEntityRepository = $this->getGeneratedIdExampleEntityRepository();
+        $this->assertCount(3, $generatedIdExampleEntityRepository->findAll());
+        $generatedIdExampleEntityRepository->removeAll(true, true);
+        $this->assertCount(0, $generatedIdExampleEntityRepository->findAll());
+    }
+
+    public function testRemoveAllByQuery()
+    {
+        $generatedIdExampleEntityRepository = $this->getGeneratedIdExampleEntityRepository();
+        $this->assertCount(3, $generatedIdExampleEntityRepository->findAll());
+        $generatedIdExampleEntityRepository->removeAll(true, false);
+        $this->assertCount(0, $generatedIdExampleEntityRepository->findAll());
+    }
+
+    public function testCountAll()
+    {
+        $generatedIdExampleEntityRepository = $this->getGeneratedIdExampleEntityRepository();
+        $this->assertEquals(3, $generatedIdExampleEntityRepository->countAll());
+    }
+
+    public function testRemoveById()
+    {
+        $generatedIdExampleEntityRepository = $this->getGeneratedIdExampleEntityRepository();
+        $this->assertCount(3, $generatedIdExampleEntityRepository->findAll());
+        $entity = $generatedIdExampleEntityRepository->find(2);
+        $this->assertNotNull($entity);
+        $generatedIdExampleEntityRepository->removeById(2);
+        $this->assertCount(2, $generatedIdExampleEntityRepository->findAll());
+        $this->assertNull($generatedIdExampleEntityRepository->find(2));
+    }
 
     /**
      * @return GeneratedIdExampleEntityRepository
