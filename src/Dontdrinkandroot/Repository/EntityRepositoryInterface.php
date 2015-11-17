@@ -14,9 +14,25 @@ interface EntityRepositoryInterface extends ObjectRepository
      * @param EntityInterface $entity
      * @param bool            $flush
      *
+     * @return EntityInterface
+     */
+    public function save(EntityInterface $entity, $flush = true);
+
+    /**
+     * @param mixed $entity
+     * @param bool  $flush
+     *
      * @return mixed
      */
-    public function save($entity, $flush = true);
+    public function persist($entity, $flush = true);
+
+    /**
+     * @param mixed $entity
+     * @param bool  $flush
+     *
+     * @return mixed
+     */
+    public function merge($entity, $flush = true);
 
     /**
      * @param mixed $id
@@ -26,7 +42,7 @@ interface EntityRepositoryInterface extends ObjectRepository
 
     /**
      * @param mixed $entity
-     * @param bool            $flush
+     * @param bool  $flush
      */
     public function remove($entity, $flush = true);
 
