@@ -11,12 +11,19 @@ interface EntityRepositoryInterface extends ObjectRepository
 {
 
     /**
+     * @deprecated Use persist and merge instead.
+     *
      * @param EntityInterface $entity
      * @param bool            $flush
      *
      * @return EntityInterface
      */
     public function save(EntityInterface $entity, $flush = true);
+
+    /**
+     * @param bool $all
+     */
+    public function flush($all = false);
 
     /**
      * @param mixed $entity

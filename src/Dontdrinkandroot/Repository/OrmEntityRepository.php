@@ -31,12 +31,24 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
+    public function flush($all = false)
+    {
+        if ($all) {
+            $this->getEntityManager()->flush();
+        } else {
+            $this->getEntityManager()->flush($this->getEntityName());
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function persist($entity, $flush = true)
     {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
-            $this->getEntityManager()->flush();
+            $this->getEntityManager()->flush($this->getEntityName());
         }
 
         return $entity;
@@ -50,7 +62,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
         $entity = $this->getEntityManager()->merge($entity);
 
         if ($flush) {
-            $this->getEntityManager()->flush();
+            $this->getEntityManager()->flush($this->getEntityName());
         }
 
         return $entity;
@@ -63,7 +75,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     {
         $this->getEntityManager()->remove($entity);
         if ($flush) {
-            $this->getEntityManager()->flush();
+            $this->getEntityManager()->flush($this->getEntityName());
         }
     }
 
@@ -95,7 +107,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $this->removeAllByQuery();
         }
         if ($flush) {
-            $this->getEntityManager()->flush();
+            $this->getEntityManager()->flush($this->getEntityName());
         }
     }
 
@@ -109,7 +121,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
                 $this->remove($entity, false);
                 $count++;
                 if ($count >= $batchSize) {
-                    $this->getEntityManager()->flush();
+                    $this->getEntityManager()->flush($this->getEntityName());
                     $count = 0;
                 }
             }
