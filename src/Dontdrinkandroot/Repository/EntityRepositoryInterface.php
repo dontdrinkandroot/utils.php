@@ -21,9 +21,9 @@ interface EntityRepositoryInterface extends ObjectRepository
     public function save(EntityInterface $entity, $flush = true);
 
     /**
-     * @param bool $all
+     * @param object|array|null $entity
      */
-    public function flush($all = false);
+    public function flush($entity = null);
 
     /**
      * @param mixed $entity

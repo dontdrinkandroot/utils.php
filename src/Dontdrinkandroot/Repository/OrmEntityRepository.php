@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Dontdrinkandroot\Entity\EntityInterface;
 use Dontdrinkandroot\Pagination\PaginatedResult;
 use Dontdrinkandroot\Pagination\Pagination;
@@ -31,13 +32,9 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function flush($all = false)
+    public function flush($entity = null)
     {
-        if ($all) {
-            $this->getEntityManager()->flush();
-        } else {
-            $this->getEntityManager()->flush($this->getEntityName());
-        }
+            $this->getEntityManager()->flush($entity);
     }
 
     /**
@@ -48,7 +45,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
-            $this->getEntityManager()->flush($this->getEntityName());
+            $this->getEntityManager()->flush($entity);
         }
 
         return $entity;
@@ -62,7 +59,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
         $entity = $this->getEntityManager()->merge($entity);
 
         if ($flush) {
-            $this->getEntityManager()->flush($this->getEntityName());
+            $this->getEntityManager()->flush($entity);
         }
 
         return $entity;
@@ -75,7 +72,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     {
         $this->getEntityManager()->remove($entity);
         if ($flush) {
-            $this->getEntityManager()->flush($this->getEntityName());
+            $this->getEntityManager()->flush($entity);
         }
     }
 
@@ -107,7 +104,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $this->removeAllByQuery();
         }
         if ($flush) {
-            $this->getEntityManager()->flush($this->getEntityName());
+            $this->getEntityManager()->flush();
         }
     }
 
@@ -121,7 +118,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
                 $this->remove($entity, false);
                 $count++;
                 if ($count >= $batchSize) {
-                    $this->getEntityManager()->flush($this->getEntityName());
+                    $this->getEntityManager()->flush();
                     $count = 0;
                 }
             }
@@ -184,6 +181,10 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
 
     public function commitTransaction()
     {
+        $nestingLevel = $this->getEntityManager()->getConnection()->getTransactionNestingLevel();
+        if (1 === $nestingLevel) {
+            $this->getEntityManager()->flush();
+        }
         $this->getEntityManager()->commit();
     }
 
@@ -200,5 +201,13 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     public function transactional($callable)
     {
         $this->getEntityManager()->transactional($callable);
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    protected function createBlankQueryBuilder()
+    {
+        return $this->getEntityManager()->createQueryBuilder();
     }
 }
