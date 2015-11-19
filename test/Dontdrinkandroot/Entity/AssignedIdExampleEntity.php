@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Table;
  * @Entity(repositoryClass="Dontdrinkandroot\Repository\AssignedIdExampleEntityRepository")
  * @Table(name="AssignedIdExampleEntity")
  */
-class AssignedIdExampleEntity
+class AssignedIdExampleEntity implements EntityInterface
 {
 
     /**

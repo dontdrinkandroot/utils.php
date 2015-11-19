@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping\Table;
  * @Entity(repositoryClass="Dontdrinkandroot\Repository\GeneratedIdExampleEntityRepository")
  * @Table(name="GeneratedIdExampleEntity")
  */
-class GeneratedIdExampleEntity
+class GeneratedIdExampleEntity implements EntityInterface
 {
 
     /**
