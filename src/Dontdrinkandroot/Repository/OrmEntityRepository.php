@@ -13,7 +13,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function persist($entity, $flush = false)
+    public function persist($entity, $flush = true)
     {
         $this->beginTransaction();
         try {

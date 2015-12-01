@@ -15,7 +15,7 @@ interface EntityRepositoryInterface extends ObjectRepository
      *
      * @return mixed
      */
-    public function persist($entity, $flush = false);
+    public function persist($entity, $flush = true);
 
     /**
      * @param mixed $entity
