@@ -10,11 +10,6 @@ interface EntityRepositoryInterface extends ObjectRepository
 {
 
     /**
-     * @param object|array|null $entity
-     */
-    public function flush($entity = null);
-
-    /**
      * @param mixed $entity
      * @param bool  $flush
      *
@@ -29,6 +24,16 @@ interface EntityRepositoryInterface extends ObjectRepository
      * @return mixed
      */
     public function merge($entity, $flush = false);
+
+    /**
+     * @param object|array|null $entity
+     */
+    public function flush($entity = null);
+
+    /**
+     * @param mixed $entity
+     */
+    public function detach($entity);
 
     /**
      * @param mixed $id

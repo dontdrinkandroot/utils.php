@@ -13,14 +13,6 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     /**
      * {@inheritdoc}
      */
-    public function flush($entity = null)
-    {
-        $this->getEntityManager()->flush($entity);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function persist($entity, $flush = false)
     {
         $this->beginTransaction();
@@ -60,6 +52,22 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
             $this->rollbackTransaction();
             throw $e;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function flush($entity = null)
+    {
+        $this->getEntityManager()->flush($entity);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function detach($entity)
+    {
+        $this->getEntityManager()->detach($entity);
     }
 
     /**
