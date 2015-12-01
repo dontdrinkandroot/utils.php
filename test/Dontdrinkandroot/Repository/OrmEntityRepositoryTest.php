@@ -34,22 +34,23 @@ class OrmEntityRepositoryTest extends DoctrineOrmTestCase
 
         $entity = new GeneratedIdExampleEntity();
         $entity->setName('name');
-        $entity = $generatedIdExampleEntityRepository->save($entity);
+        $entity = $generatedIdExampleEntityRepository->persist($entity);
         $this->assertEquals(4, $entity->getId());
 
         $this->assertNotNull($generatedIdExampleEntityRepository->findOneBy(['name' => 'name']));
         $this->assertCount(4, $generatedIdExampleEntityRepository->findAll());
 
         $this->entityManager->detach($entity);
+        $entity = $generatedIdExampleEntityRepository->merge($entity);
 
         $entity->setName('changedName');
-        $entity = $generatedIdExampleEntityRepository->save($entity);
+        $generatedIdExampleEntityRepository->flush($entity);
         $this->assertEquals(4, $entity->getId());
         $this->assertNotNull($generatedIdExampleEntityRepository->findOneBy(['name' => 'changedName']));
         $this->assertCount(4, $generatedIdExampleEntityRepository->findAll());
 
         $entity->setName('changedName2');
-        $entity = $generatedIdExampleEntityRepository->save($entity);
+        $generatedIdExampleEntityRepository->flush($entity);
         $this->assertEquals(4, $entity->getId());
         $this->assertNotNull($generatedIdExampleEntityRepository->findOneBy(['name' => 'changedName2']));
         $this->assertCount(4, $generatedIdExampleEntityRepository->findAll());
@@ -62,22 +63,23 @@ class OrmEntityRepositoryTest extends DoctrineOrmTestCase
         $entity = new AssignedIdExampleEntity();
         $entity->setId(666);
         $entity->setName('name');
-        $entity = $assignedIdExampleEntityRepository->save($entity);
+        $entity = $assignedIdExampleEntityRepository->persist($entity);
         $this->assertEquals(666, $entity->getId());
 
         $this->assertNotNull($assignedIdExampleEntityRepository->findOneBy(['name' => 'name']));
         $this->assertCount(1, $assignedIdExampleEntityRepository->findAll());
 
         $this->entityManager->detach($entity);
+        $entity = $assignedIdExampleEntityRepository->merge($entity);
 
         $entity->setName('changedName');
-        $entity = $assignedIdExampleEntityRepository->save($entity);
+        $assignedIdExampleEntityRepository->flush($entity);
         $this->assertEquals(666, $entity->getId());
         $this->assertNotNull($assignedIdExampleEntityRepository->findOneBy(['name' => 'changedName']));
         $this->assertCount(1, $assignedIdExampleEntityRepository->findAll());
 
         $entity->setName('changedName2');
-        $entity = $assignedIdExampleEntityRepository->save($entity);
+        $assignedIdExampleEntityRepository->flush($entity);
         $this->assertEquals(666, $entity->getId());
         $this->assertNotNull($assignedIdExampleEntityRepository->findOneBy(['name' => 'changedName2']));
         $this->assertCount(1, $assignedIdExampleEntityRepository->findAll());

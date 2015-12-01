@@ -4,21 +4,10 @@
 namespace Dontdrinkandroot\Repository;
 
 use Doctrine\Common\Persistence\ObjectRepository;
-use Dontdrinkandroot\Entity\EntityInterface;
 use Dontdrinkandroot\Pagination\PaginatedResult;
 
 interface EntityRepositoryInterface extends ObjectRepository
 {
-
-    /**
-     * @deprecated Use persist and merge instead.
-     *
-     * @param EntityInterface $entity
-     * @param bool            $flush
-     *
-     * @return EntityInterface
-     */
-    public function save(EntityInterface $entity, $flush = true);
 
     /**
      * @param object|array|null $entity
@@ -31,7 +20,7 @@ interface EntityRepositoryInterface extends ObjectRepository
      *
      * @return mixed
      */
-    public function persist($entity, $flush = true);
+    public function persist($entity, $flush = false);
 
     /**
      * @param mixed $entity
@@ -39,19 +28,19 @@ interface EntityRepositoryInterface extends ObjectRepository
      *
      * @return mixed
      */
-    public function merge($entity, $flush = true);
+    public function merge($entity, $flush = false);
 
     /**
      * @param mixed $id
      * @param bool  $flush
      */
-    public function removeById($id, $flush = true);
+    public function removeById($id, $flush = false);
 
     /**
      * @param mixed $entity
      * @param bool  $flush
      */
-    public function remove($entity, $flush = true);
+    public function remove($entity, $flush = false);
 
     /**
      * @param bool $flush
@@ -59,7 +48,7 @@ interface EntityRepositoryInterface extends ObjectRepository
      *
      * Removes all entities managed by the repository.
      */
-    public function removeAll($flush = true, $iterate = true);
+    public function removeAll($flush = false, $iterate = true);
 
     /**
      * @param int        $page
