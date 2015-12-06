@@ -32,7 +32,8 @@
 
     },
     "suggest": {
-        "doctrine/orm": "This utils provide helpers for doctrine orm"
+        "doctrine/orm": "This utils provide helpers for doctrine orm",
+        "doctrine/data-fixtures": "For data fixture testing"
     },
     "config": {
         "bin-dir": "bin"
