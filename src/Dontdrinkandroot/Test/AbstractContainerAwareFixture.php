@@ -6,12 +6,15 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @deprecated Use dontdrinkandroot/utils-bundle.php instead.
+ */
 abstract class AbstractContainerAwareFixture extends AbstractFixture
     implements ContainerAwareInterface
 {
 
     /**
-     * @var ContainerAwareInterface
+     * @var ContainerInterface
      */
     protected $container;
 

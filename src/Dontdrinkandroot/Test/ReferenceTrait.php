@@ -3,6 +3,9 @@
 
 namespace Dontdrinkandroot\Test;
 
+/**
+ * @deprecated Use dontdrinkandroot/utils-bundle.php instead.
+ */
 trait ReferenceTrait
 {
 
