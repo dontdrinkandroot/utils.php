@@ -168,7 +168,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
         return $this->transactionManager->transactional(
             function () use ($page, $perPage, $criteria, $orderBy) {
                 $persister = $this->getEntityManager()->getUnitOfWork()->getEntityPersister($this->_entityName);
-                $total = $persister->count($criteria);
+                $total = $this->count($criteria);
                 $results = $persister->loadAll($criteria, $orderBy, $perPage, ($page - 1) * $perPage);
 
                 $pagination = new Pagination($page, $perPage, $total);
@@ -177,6 +177,35 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
                 return $paginatedResult;
             }
         );
+    }
+
+    /**
+     * @param array $criteria
+     *
+     * @return int
+     */
+    private function count(array $criteria = [])
+    {
+
+        $persister = $this->getEntityManager()->getUnitOfWork()->getEntityPersister($this->_entityName);
+
+        if (method_exists($persister, 'count')) {
+            return $persister->count($criteria);
+        }
+
+        $queryBuilder = $this->createBlankQueryBuilder();
+        $queryBuilder
+            ->select('COUNT(entity)')
+            ->from($this->getEntityName(), 'entity');
+
+        if (count($criteria) > 0) {
+            $expr = $queryBuilder->expr();
+            foreach ($criteria as $field => $value) {
+                $queryBuilder->andWhere($expr->eq('entity' . $field, $value));
+            }
+        }
+
+        return (int)$queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**
