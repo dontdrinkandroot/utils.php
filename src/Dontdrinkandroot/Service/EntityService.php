@@ -58,7 +58,15 @@ class EntityService extends AbstractService implements EntityServiceInterface
      */
     public function save(EntityInterface $entity)
     {
-        return $this->repository->save($entity);
+        if (null === $entity->getId()) {
+            $this->repository->persist($entity);
+
+            return $entity;
+        }
+
+        $this->repository->flush($entity);
+
+        return $entity;
     }
 
     /**
