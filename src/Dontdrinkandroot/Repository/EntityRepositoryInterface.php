@@ -69,4 +69,9 @@ interface EntityRepositoryInterface extends ObjectRepository
      * @return int
      */
     public function countAll();
+
+    /**
+     * @return TransactionManager
+     */
+    public function getTransactionManager();
 }

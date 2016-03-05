@@ -28,7 +28,6 @@ class FlexDate
      */
     public function __construct($year = null, $month = null, $day = null)
     {
-
         $this->year = $year;
         $this->month = $month;
         $this->day = $day;

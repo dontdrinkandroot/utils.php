@@ -123,7 +123,7 @@ class OrmEntityRepository extends EntityRepository implements EntityRepositoryIn
     }
 
     /**
-     * @return TransactionManager
+     * {@inheritdoc}
      */
     public function getTransactionManager()
     {
