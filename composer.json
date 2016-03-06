@@ -26,22 +26,17 @@
     "require-dev": {
         "phpunit/phpunit": "~4.0",
         "squizlabs/php_codesniffer": "~2.0",
-        "doctrine/orm": "~2.4",
-        "phpunit/dbunit": "^2.0",
-        "scrutinizer/ocular": "^1.1",
-        "doctrine/data-fixtures": "^1.1"
+        "scrutinizer/ocular": "^1.1"
 
     },
     "suggest": {
-        "doctrine/orm": "This utils provide helpers for doctrine orm",
-        "doctrine/data-fixtures": "For data fixture testing"
     },
     "config": {
         "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.4.x-dev"
+            "dev-master": "0.5.x-dev"
         }
     }
 }
