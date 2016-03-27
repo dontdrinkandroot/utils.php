@@ -6,6 +6,12 @@ namespace Dontdrinkandroot\Date;
 class FlexDate
 {
 
+    const PRECISION_YEAR = 'year';
+
+    const PRECISION_MONTH = 'month';
+
+    const PRECISION_DAY = 'day';
+
     /**
      * @var int|null
      */
@@ -196,5 +202,22 @@ class FlexDate
         }
 
         return $flexDate;
+    }
+
+    public function getPrecision()
+    {
+        if (null === $this->year) {
+            return null;
+        }
+
+        if (null === $this->month) {
+            return self::PRECISION_YEAR;
+        }
+
+        if (null === $this->day) {
+            return self::PRECISION_MONTH;
+        }
+
+        return self::PRECISION_DAY;
     }
 }
