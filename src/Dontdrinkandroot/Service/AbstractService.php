@@ -4,7 +4,6 @@ namespace Dontdrinkandroot\Service;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Symfony\Component\Validator\Constraints\Null;
 
 class AbstractService
 {
