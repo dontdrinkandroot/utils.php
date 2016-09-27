@@ -24,7 +24,7 @@ class AbstractService
      */
     public function getLogger()
     {
-        if (null == $this->logger) {
+        if (null === $this->logger) {
             $this->logger = new NullLogger();
         }
 
