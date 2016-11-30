@@ -4,7 +4,6 @@ namespace Dontdrinkandroot\Date;
 
 class FlexDateTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testValidDate()
     {
         $flexDate = new FlexDate();
@@ -113,5 +112,20 @@ class FlexDateTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($flexDate->isCompleteDate());
         $this->assertTrue($flexDate->isValidDate());
         $this->assertTrue($flexDate->isValid());
+    }
+
+    public function testPrecision()
+    {
+        $flexDate = new FlexDate();
+        $this->assertEquals(FlexDate::PRECISION_NONE, $flexDate->getPrecision());
+
+        $flexDate->setYear(2015);
+        $this->assertEquals(FlexDate::PRECISION_YEAR, $flexDate->getPrecision());
+
+        $flexDate->setMonth(3);
+        $this->assertEquals(FlexDate::PRECISION_MONTH, $flexDate->getPrecision());
+
+        $flexDate->setDay(3);
+        $this->assertEquals(FlexDate::PRECISION_DAY, $flexDate->getPrecision());
     }
 }

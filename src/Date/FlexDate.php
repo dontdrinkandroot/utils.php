@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dontdrinkandroot\Date;
 
 class FlexDate
@@ -11,6 +10,8 @@ class FlexDate
     const PRECISION_MONTH = 'month';
 
     const PRECISION_DAY = 'day';
+
+    const PRECISION_NONE = 'none';
 
     /**
      * @var int|null
@@ -204,20 +205,23 @@ class FlexDate
         return $flexDate;
     }
 
+    /**
+     * @return string
+     */
     public function getPrecision()
     {
-        if (null === $this->year) {
-            return null;
+        if (null !== $this->day) {
+            return self::PRECISION_DAY;
         }
 
-        if (null === $this->month) {
-            return self::PRECISION_YEAR;
-        }
-
-        if (null === $this->day) {
+        if (null !== $this->month) {
             return self::PRECISION_MONTH;
         }
 
-        return self::PRECISION_DAY;
+        if (null !== $this->year) {
+            return self::PRECISION_YEAR;
+        }
+
+        return self::PRECISION_NONE;
     }
 }
