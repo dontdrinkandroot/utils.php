@@ -5,8 +5,7 @@ namespace Dontdrinkandroot\Path;
 
 class PathUtils
 {
-
-    public static function getPathDiff(Path $fromPath, Path $toPath, $separator = '/')
+    public static function getPathDiff(Path $fromPath, Path $toPath, string $separator = '/'): string
     {
         /** @var DirectoryPath $fromDirectoryPath */
         $fromDirectoryPath = $fromPath;
@@ -28,7 +27,11 @@ class PathUtils
         return $pathDiff;
     }
 
-    public static function getDirectoryPathDiff(DirectoryPath $fromPath, DirectoryPath $toPath, $separator = '/')
+    public static function getDirectoryPathDiff(
+        DirectoryPath $fromPath,
+        DirectoryPath $toPath,
+        string $separator = '/'
+    ): string
     {
         $result = '';
 
@@ -64,7 +67,7 @@ class PathUtils
      *
      * @return string[]
      */
-    public static function getDirectoryPathParts(DirectoryPath $path)
+    public static function getDirectoryPathParts(DirectoryPath $path): array
     {
         $currentPath = $path;
         $parts = [];

@@ -5,7 +5,6 @@ namespace Dontdrinkandroot\Utils;
 
 class StringUtils
 {
-
     /**
      * Checks if a string starts with another string.
      *
@@ -13,7 +12,7 @@ class StringUtils
      * @param string $needle The string to search.
      * @return bool
      */
-    public static function startsWith($haystack, $needle)
+    public static function startsWith(string $haystack, string $needle): bool
     {
         return $needle === "" || strpos($haystack, $needle) === 0;
     }
@@ -25,7 +24,7 @@ class StringUtils
      * @param string $needle The string to search.
      * @return bool
      */
-    public static function endsWith($haystack, $needle)
+    public static function endsWith(string $haystack, string $needle): bool
     {
         return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
     }

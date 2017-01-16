@@ -1,79 +1,35 @@
 <?php
 
-
 namespace Dontdrinkandroot\Path;
 
 interface Path
 {
+    public function getName(): ?string;
 
-    /**
-     * @return string
-     */
-    public function getName();
+    public function hasParentPath(): bool;
 
-    /**
-     * @return bool
-     */
-    public function hasParentPath();
+    public function getParentPath(): DirectoryPath;
 
-    /**
-     * @return DirectoryPath
-     */
-    public function getParentPath();
-
-    /**
-     * @param DirectoryPath $path
-     *
-     * @return Path
-     */
-    public function prepend(DirectoryPath $path);
+    public function prepend(DirectoryPath $path): Path;
 
     /**
      * @return Path[]
      */
-    public function collectPaths();
+    public function collectPaths(): array;
 
-    /**
-     * @return string
-     */
-    public function toAbsoluteUrlString();
+    public function toAbsoluteUrlString(): string;
 
-    /**
-     * @return string
-     */
-    public function toRelativeUrlString();
+    public function toRelativeUrlString(): string;
 
-    /**
-     * @return string
-     */
-    public function toAbsoluteFileSystemString();
+    public function toAbsoluteFileSystemString(): string;
 
-    /**
-     * @return string
-     */
-    public function toRelativeFileSystemString();
+    public function toRelativeFileSystemString(): string;
 
-    /**
-     * @param string $separator
-     *
-     * @return string
-     */
-    public function toRelativeString($separator = '/');
+    public function toAbsoluteString(string $separator = '/'): string;
 
-    /**
-     * @param string $separator
-     *
-     * @return string
-     */
-    public function toAbsoluteString($separator = '/');
+    public function toRelativeString(string $separator = '/'): string;
 
-    /**
-     * @return bool
-     */
-    public function isFilePath();
+    public function isFilePath(): bool;
 
-    /**
-     * @return bool
-     */
-    public function isDirectoryPath();
+    public function isDirectoryPath(): bool;
 }

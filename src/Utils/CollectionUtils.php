@@ -6,14 +6,13 @@ use Traversable;
 
 class CollectionUtils
 {
-
     /**
      * @param array|Traversable $collection
      * @param callable          $collectFunction
      *
      * @return array
      */
-    public static function collect($collection, callable $collectFunction)
+    public static function collect($collection, callable $collectFunction): array
     {
         $results = [];
         foreach ($collection as $element) {
@@ -29,7 +28,7 @@ class CollectionUtils
      *
      * @return array
      */
-    public static function collectProperty($collection, $propertyName)
+    public static function collectProperty($collection, string $propertyName): array
     {
         $results = [];
         foreach ($collection as $element) {

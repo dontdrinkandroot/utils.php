@@ -7,14 +7,13 @@ use Dontdrinkandroot\Utils\StringUtils;
 
 class FilePath extends AbstractPath
 {
-
     /**
      * @var string
      */
     protected $fileName;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $extension;
 
@@ -23,7 +22,7 @@ class FilePath extends AbstractPath
      *
      * @throws \Exception
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         if (empty($name)) {
             throw new \Exception('Name must not be empty');
@@ -46,7 +45,7 @@ class FilePath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         $name = $this->fileName;
         if (null !== $this->extension) {
@@ -59,7 +58,7 @@ class FilePath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function toRelativeString($separator = '/')
+    public function toRelativeString(string $separator = '/'): string
     {
         return $this->parentPath->toRelativeString($separator) . $this->getName();
     }
@@ -67,7 +66,7 @@ class FilePath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function toAbsoluteString($separator = '/')
+    public function toAbsoluteString(string $separator = '/'): string
     {
         return $this->parentPath->toAbsoluteString($separator) . $this->getName();
     }
@@ -75,7 +74,7 @@ class FilePath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function prepend(DirectoryPath $path)
+    public function prepend(DirectoryPath $path): Path
     {
         return FilePath::parse($path->toAbsoluteString() . $this->toAbsoluteString());
     }
@@ -83,7 +82,7 @@ class FilePath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function isDirectoryPath()
+    public function isDirectoryPath(): bool
     {
         return false;
     }
@@ -91,7 +90,7 @@ class FilePath extends AbstractPath
     /**
      * @return string
      */
-    public function getExtension()
+    public function getExtension(): ?string
     {
         return $this->extension;
     }
@@ -99,7 +98,7 @@ class FilePath extends AbstractPath
     /**
      * @return string
      */
-    public function getFileName()
+    public function getFileName(): string
     {
         return $this->fileName;
     }
@@ -111,7 +110,7 @@ class FilePath extends AbstractPath
      * @return FilePath
      * @throws \Exception
      */
-    public static function parse($pathString, $separator = '/')
+    public static function parse(string $pathString, string $separator = '/'): FilePath
     {
         if (empty($pathString)) {
             throw new \Exception('Path String must not be empty');

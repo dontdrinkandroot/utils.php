@@ -5,7 +5,6 @@ namespace Dontdrinkandroot\Path;
 
 abstract class AbstractPath implements Path
 {
-
     /**
      * @var DirectoryPath
      */
@@ -14,7 +13,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function hasParentPath()
+    public function hasParentPath(): bool
     {
         return (null !== $this->parentPath);
     }
@@ -22,7 +21,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function getParentPath()
+    public function getParentPath(): DirectoryPath
     {
         return $this->parentPath;
     }
@@ -30,7 +29,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function collectPaths()
+    public function collectPaths(): array
     {
         if (!$this->hasParentPath()) {
             return [$this];
@@ -42,7 +41,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function isFilePath()
+    public function isFilePath(): bool
     {
         return !$this->isDirectoryPath();
     }
@@ -50,7 +49,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function toAbsoluteUrlString()
+    public function toAbsoluteUrlString(): string
     {
         return $this->toAbsoluteString('/');
     }
@@ -58,7 +57,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function toRelativeUrlString()
+    public function toRelativeUrlString(): string
     {
         return $this->toRelativeString('/');
     }
@@ -66,7 +65,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function toAbsoluteFileSystemString()
+    public function toAbsoluteFileSystemString(): string
     {
         return $this->toAbsoluteString(DIRECTORY_SEPARATOR);
     }
@@ -74,7 +73,7 @@ abstract class AbstractPath implements Path
     /**
      * {@inheritdoc}
      */
-    public function toRelativeFileSystemString()
+    public function toRelativeFileSystemString(): string
     {
         return $this->toRelativeString(DIRECTORY_SEPARATOR);
     }
@@ -90,7 +89,7 @@ abstract class AbstractPath implements Path
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toAbsoluteString();
     }

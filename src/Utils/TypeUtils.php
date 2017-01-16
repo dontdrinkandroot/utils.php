@@ -4,7 +4,6 @@ namespace Dontdrinkandroot\Utils;
 
 class TypeUtils
 {
-
     /**
      * Asserts that the input is an integerish, otherwise null will be returned.
      *
@@ -12,7 +11,7 @@ class TypeUtils
      *
      * @return integer|null
      */
-    public static function integerOrNull($value)
+    public static function integerOrNull($value): ?int
     {
         $intVal = intval($value);
         if (is_object($value)
@@ -32,7 +31,7 @@ class TypeUtils
      *
      * @return int
      */
-    public static function compareNumbers($num1, $num2)
+    public static function compareNumbers($num1, $num2): ?int
     {
         if ($num1 == $num2) {
             return 0;

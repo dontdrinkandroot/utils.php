@@ -4,13 +4,9 @@ namespace Dontdrinkandroot\Date;
 
 class FlexDate
 {
-
     const PRECISION_YEAR = 'year';
-
     const PRECISION_MONTH = 'month';
-
     const PRECISION_DAY = 'day';
-
     const PRECISION_NONE = 'none';
 
     /**
@@ -28,86 +24,54 @@ class FlexDate
      */
     protected $day;
 
-    /**
-     * @param int|null $year
-     * @param int|null $month
-     * @param int|null $day
-     */
-    public function __construct($year = null, $month = null, $day = null)
+    public function __construct(?int $year = null, ?int $month = null, ?int $day = null)
     {
         $this->year = $year;
         $this->month = $month;
         $this->day = $day;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getYear()
+    public function getYear(): ?int
     {
         return $this->year;
     }
 
-    /**
-     * @param int|null $year
-     */
-    public function setYear($year)
+    public function setYear(?int $year): void
     {
         $this->year = $year;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getMonth()
+    public function getMonth(): ?int
     {
         return $this->month;
     }
 
-    /**
-     * @param int|null $month
-     */
-    public function setMonth($month)
+    public function setMonth(?int $month): void
     {
         $this->month = $month;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getDay()
+    public function getDay(): ?int
     {
         return $this->day;
     }
 
-    /**
-     * @param int|null $day
-     */
-    public function setDay($day)
+    public function setDay(?int $day): void
     {
         $this->day = $day;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasValue()
+    public function hasValue(): bool
     {
         return null !== $this->year || null !== $this->month || null !== $this->day;
     }
 
-    /**
-     * @return bool
-     */
-    public function isCompleteDate()
+    public function isCompleteDate(): bool
     {
         return null !== $this->year && null !== $this->month && null !== $this->day;
     }
 
-    /**
-     * @return bool
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         try {
             $this->assertValid();
@@ -118,11 +82,7 @@ class FlexDate
         }
     }
 
-    /**
-     * @return bool
-     * @throws \Exception
-     */
-    public function assertValid()
+    public function assertValid(): bool
     {
         if (null !== $this->day && null === $this->month) {
             throw new \Exception('Day set, but no month');
@@ -135,18 +95,12 @@ class FlexDate
         return true;
     }
 
-    /**
-     * @return bool
-     */
-    public function isValidDate()
+    public function isValidDate(): bool
     {
         return checkdate($this->month, $this->day, $this->year);
     }
 
-    /**
-     * @¶eturn \DateTime
-     */
-    public function toDateTime()
+    public function toDateTime(): \DateTime
     {
         $dateTime = new \DateTime();
         $inferredYear = $this->year !== null ? $this->year : 0;
@@ -157,10 +111,7 @@ class FlexDate
         return $dateTime;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __toString()
+    public function __toString(): string
     {
         $string = '';
         if (null !== $this->year) {
@@ -178,12 +129,7 @@ class FlexDate
         return $string;
     }
 
-    /**
-     * @param string $dateString
-     *
-     * @return FlexDate
-     */
-    public static function fromString($dateString)
+    public static function fromString(string $dateString): FlexDate
     {
         $flexDate = new FlexDate();
         if (empty($dateString)) {
@@ -205,10 +151,7 @@ class FlexDate
         return $flexDate;
     }
 
-    /**
-     * @return string
-     */
-    public function getPrecision()
+    public function getPrecision(): string
     {
         if (null !== $this->day) {
             return self::PRECISION_DAY;

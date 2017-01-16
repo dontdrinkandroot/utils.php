@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class AbstractContainerAwareFixture extends AbstractFixture
     implements ContainerAwareInterface
 {
-
     /**
      * @var ContainerInterface
      */
@@ -21,7 +20,7 @@ abstract class AbstractContainerAwareFixture extends AbstractFixture
     /**
      * {@inheritdoc}
      */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(?ContainerInterface $container = null)
     {
         $this->container = $container;
     }

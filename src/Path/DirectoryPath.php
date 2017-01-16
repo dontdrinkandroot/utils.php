@@ -1,24 +1,22 @@
 <?php
 
-
 namespace Dontdrinkandroot\Path;
 
 use Dontdrinkandroot\Utils\StringUtils;
 
 class DirectoryPath extends AbstractPath
 {
-
     /**
      * @var string
      */
     protected $name;
 
     /**
-     * @param string|null $name
+     * @param string $name
      *
-     * @throws \Exception
+     * @throws \Exception Thrown if name contains invalid characters.
      */
-    public function __construct($name = null)
+    public function __construct(string $name = null)
     {
         if (strpos($name, '/') !== false) {
             throw new \Exception('Name must not contain /');
@@ -36,7 +34,7 @@ class DirectoryPath extends AbstractPath
      * @return DirectoryPath
      * @throws \Exception Thrown if appending directory name fails.
      */
-    public function appendDirectory($name)
+    public function appendDirectory(string $name): DirectoryPath
     {
         if (empty($name)) {
             throw new \Exception('Name must not be empty');
@@ -58,7 +56,7 @@ class DirectoryPath extends AbstractPath
      * @return FilePath
      * @throws \Exception Thrown if appending file name fails.
      */
-    public function appendFile($name)
+    public function appendFile(string $name): FilePath
     {
         if (empty($name)) {
             throw new \Exception('Name must not be empty');
@@ -77,7 +75,7 @@ class DirectoryPath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function toRelativeString($separator = '/')
+    public function toRelativeString(string $separator = '/'): string
     {
         if (null === $this->parentPath) {
             return '';
@@ -89,7 +87,7 @@ class DirectoryPath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function toAbsoluteString($separator = '/')
+    public function toAbsoluteString(string $separator = '/'): string
     {
         if (null === $this->parentPath) {
             return $separator;
@@ -101,15 +99,15 @@ class DirectoryPath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function prepend(DirectoryPath $path)
+    public function prepend(DirectoryPath $path): Path
     {
         return DirectoryPath::parse($path->toAbsoluteString() . $this->toAbsoluteString());
     }
 
     /**
-     * @return null|string
+     * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -117,7 +115,7 @@ class DirectoryPath extends AbstractPath
     /**
      * @return bool
      */
-    public function isRoot()
+    public function isRoot(): bool
     {
         return null === $this->parentPath && null === $this->name;
     }
@@ -145,7 +143,7 @@ class DirectoryPath extends AbstractPath
     /**
      * {@inheritdoc}
      */
-    public function isDirectoryPath()
+    public function isDirectoryPath(): bool
     {
         return true;
     }
@@ -156,7 +154,7 @@ class DirectoryPath extends AbstractPath
      * @return DirectoryPath|FilePath
      * @throws \Exception
      */
-    public function appendPathString($pathString)
+    public function appendPathString(string $pathString): Path
     {
         if (empty($pathString)) {
             return clone $this;
@@ -191,15 +189,18 @@ class DirectoryPath extends AbstractPath
     }
 
     /**
-     * @param string        $pathString
+     * @param string|null   $pathString
      * @param DirectoryPath $rootPath
      * @param string        $separator
      *
      * @return DirectoryPath
      * @throws \Exception
      */
-    protected static function parseDirectoryPath($pathString, DirectoryPath $rootPath, $separator = '/')
-    {
+    protected static function parseDirectoryPath(
+        ?string $pathString,
+        DirectoryPath $rootPath,
+        string $separator = '/'
+    ): DirectoryPath {
         $lastPath = $rootPath;
         if (null !== $pathString) {
             $parts = explode($separator, $pathString);

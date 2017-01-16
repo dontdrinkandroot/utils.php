@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Dontdrinkandroot\Pagination;
 
 class Pagination
 {
-
     /**
      * @var int
      */
@@ -21,12 +19,7 @@ class Pagination
      */
     private $total;
 
-    /**
-     * @param int $currentPage
-     * @param int $perPage
-     * @param int $total
-     */
-    public function __construct($currentPage, $perPage, $total)
+    public function __construct(int $currentPage, int $perPage, int $total)
     {
         if ($currentPage < 1) {
             throw new \InvalidArgumentException('CurrentPage must be greater than 0');
@@ -45,26 +38,17 @@ class Pagination
         $this->total = $total;
     }
 
-    /**
-     * @return int
-     */
-    public function getCurrentPage()
+    public function getCurrentPage(): int
     {
         return $this->currentPage;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotal()
+    public function getTotal(): int
     {
         return $this->total;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalPages()
+    public function getTotalPages(): int
     {
         if ($this->total == 0) {
             return 0;
@@ -73,10 +57,7 @@ class Pagination
         return (int)(($this->total - 1) / $this->perPage + 1);
     }
 
-    /**
-     * @return int
-     */
-    public function getPerPage()
+    public function getPerPage(): int
     {
         return $this->perPage;
     }

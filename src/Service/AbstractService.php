@@ -7,14 +7,13 @@ use Psr\Log\NullLogger;
 
 class AbstractService
 {
-
     /** @var  LoggerInterface */
     private $logger;
 
     /**
      * @param LoggerInterface $logger
      */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
@@ -22,7 +21,7 @@ class AbstractService
     /**
      * @return LoggerInterface
      */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         if (null === $this->logger) {
             $this->logger = new NullLogger();

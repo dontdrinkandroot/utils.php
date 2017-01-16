@@ -5,7 +5,6 @@ namespace Dontdrinkandroot\Path;
 
 class FilePathTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testBasic()
     {
         $path = FilePath::parse('/index.md');
@@ -68,7 +67,7 @@ class FilePathTest extends \PHPUnit_Framework_TestCase
         try {
             $path = new FilePath(null);
             $this->fail('Exception expected');
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             /* Expected */
         }
 
@@ -133,5 +132,4 @@ class FilePathTest extends \PHPUnit_Framework_TestCase
         $mergedPath = $path2->prepend($path1);
         $this->assertEquals('/sub/subsub/index.md', $mergedPath->toAbsoluteUrlString());
     }
-
 }

@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Dontdrinkandroot\Pagination;
 
 class PaginatedResult
 {
-
     /**
      * @var Pagination
      */
@@ -22,18 +20,12 @@ class PaginatedResult
         $this->results = $results;
     }
 
-    /**
-     * @return Pagination
-     */
-    public function getPagination()
+    public function getPagination(): Pagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @return array
-     */
-    public function getResults()
+    public function getResults(): array
     {
         return $this->results;
     }
