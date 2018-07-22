@@ -2,7 +2,9 @@
 
 namespace Dontdrinkandroot\Utils;
 
-class CollectionUtilsTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CollectionUtilsTest extends TestCase
 {
 
     public function testCollect()

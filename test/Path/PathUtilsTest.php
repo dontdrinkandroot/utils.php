@@ -3,7 +3,9 @@
 
 namespace Dontdrinkandroot\Path;
 
-class PathUtilsTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PathUtilsTest extends TestCase
 {
 
     public function testDiff()

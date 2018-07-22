@@ -2,9 +2,10 @@
 
 namespace Dontdrinkandroot\Utils;
 
-class TypeUtilsTest extends \PHPUnit_Framework_TestCase
-{
+use PHPUnit\Framework\TestCase;
 
+class TypeUtilsTest extends TestCase
+{
     public function testIntegerOrNull()
     {
         $this->assertNull(TypeUtils::integerOrNull(''));

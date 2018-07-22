@@ -3,7 +3,9 @@
 
 namespace Dontdrinkandroot\Path;
 
-class DirectoryPathTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class DirectoryPathTest extends TestCase
 {
 
     public function testInvalid()

@@ -3,8 +3,9 @@
 
 namespace Dontdrinkandroot\Pagination;
 
+use PHPUnit\Framework\TestCase;
 
-class PaginationTest extends \PHPUnit_Framework_TestCase
+class PaginationTest extends TestCase
 {
 
     public function testInvalid()

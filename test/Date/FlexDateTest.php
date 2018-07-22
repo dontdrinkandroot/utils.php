@@ -2,7 +2,9 @@
 
 namespace Dontdrinkandroot\Date;
 
-class FlexDateTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class FlexDateTest extends TestCase
 {
     public function testValidDate()
     {

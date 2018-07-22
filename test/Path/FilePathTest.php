@@ -3,7 +3,9 @@
 
 namespace Dontdrinkandroot\Path;
 
-class FilePathTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class FilePathTest extends TestCase
 {
     public function testBasic()
     {

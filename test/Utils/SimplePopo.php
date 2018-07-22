@@ -5,7 +5,6 @@ namespace Dontdrinkandroot\Utils;
 
 class SimplePopo 
 {
-
     public $property1;
 
     public $property2;
