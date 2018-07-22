@@ -4,6 +4,9 @@ namespace Dontdrinkandroot\Utils;
 
 use Traversable;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 class CollectionUtils
 {
     /**

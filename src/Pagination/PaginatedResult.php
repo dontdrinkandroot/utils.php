@@ -2,6 +2,9 @@
 
 namespace Dontdrinkandroot\Pagination;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 class PaginatedResult
 {
     /**

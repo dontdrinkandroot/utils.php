@@ -4,6 +4,9 @@ namespace Dontdrinkandroot\Path;
 
 use Dontdrinkandroot\Utils\StringUtils;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 class DirectoryPath extends AbstractPath
 {
     /**

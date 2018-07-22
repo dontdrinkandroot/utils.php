@@ -2,6 +2,9 @@
 
 namespace Dontdrinkandroot\Date;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 class FlexDate
 {
     const PRECISION_YEAR = 'year';

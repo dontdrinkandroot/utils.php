@@ -3,6 +3,9 @@
 
 namespace Dontdrinkandroot\Path;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 abstract class AbstractPath implements Path
 {
     /**

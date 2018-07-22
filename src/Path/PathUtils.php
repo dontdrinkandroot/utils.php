@@ -3,6 +3,9 @@
 
 namespace Dontdrinkandroot\Path;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 class PathUtils
 {
     public static function getPathDiff(Path $fromPath, Path $toPath, string $separator = '/'): string

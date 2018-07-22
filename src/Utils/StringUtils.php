@@ -3,6 +3,9 @@
 
 namespace Dontdrinkandroot\Utils;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 class StringUtils
 {
     /**

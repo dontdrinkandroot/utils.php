@@ -2,6 +2,9 @@
 
 namespace Dontdrinkandroot\Path;
 
+/**
+ * @author Philip Washington Sorst <philip@sorst.net>
+ */
 interface Path
 {
     public function getName(): ?string;
