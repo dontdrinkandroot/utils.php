@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dontdrinkandroot\Path;
 
 /**
@@ -34,8 +33,7 @@ class PathUtils
         DirectoryPath $fromPath,
         DirectoryPath $toPath,
         string $separator = '/'
-    ): string
-    {
+    ): string {
         $result = '';
 
         $fromParts = static::getDirectoryPathParts($fromPath);
@@ -45,8 +43,7 @@ class PathUtils
         $toDepth = count($toParts);
 
         $equalUpToIndex = 0;
-        while (
-            $fromDepth > $equalUpToIndex
+        while ($fromDepth > $equalUpToIndex
             && $toDepth > $equalUpToIndex
             && $fromParts[$equalUpToIndex] === $toParts[$equalUpToIndex]
         ) {
