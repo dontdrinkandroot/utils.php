@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class PathUtilsTest extends TestCase
 {
-
     public function testDiff()
     {
         $from = new DirectoryPath();

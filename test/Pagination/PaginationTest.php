@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Dontdrinkandroot\Pagination;
 
 use PHPUnit\Framework\TestCase;
 
 class PaginationTest extends TestCase
 {
-
     public function testInvalid()
     {
         try {
@@ -61,5 +59,4 @@ class PaginationTest extends TestCase
         $pagination = new Pagination(1, 2, 42);
         $this->assertEquals(42, $pagination->getTotal());
     }
-
-} 
+}

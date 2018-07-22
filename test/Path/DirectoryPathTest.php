@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class DirectoryPathTest extends TestCase
 {
-
     public function testInvalid()
     {
         try {

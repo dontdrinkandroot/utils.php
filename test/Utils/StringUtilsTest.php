@@ -32,6 +32,4 @@ class StringUtilsTest extends TestCase
         $this->assertFalse(StringUtils::getLastChar(''));
         $this->assertEquals('a', StringUtils::getLastChar('bla'));
     }
-
-
 }

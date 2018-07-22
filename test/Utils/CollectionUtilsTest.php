@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class CollectionUtilsTest extends TestCase
 {
-
     public function testCollect()
     {
         $collection = [];
