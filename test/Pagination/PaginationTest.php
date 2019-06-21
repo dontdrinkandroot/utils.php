@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\Pagination;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class PaginationTest extends TestCase
@@ -11,22 +12,25 @@ class PaginationTest extends TestCase
         try {
             new Pagination(-1, 0, 0);
             $this->fail("Exception expected");
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             /* Expected */
+            $this->assertEquals('CurrentPage must be greater than 0', $e->getMessage());
         }
 
         try {
             new Pagination(1, 0, 0);
             $this->fail("Exception expected");
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             /* Expected */
+            $this->assertEquals('PerPage mustbe greater than 0', $e->getMessage());
         }
 
         try {
             new Pagination(1, 1, -1);
             $this->fail("Exception expected");
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             /* Expected */
+            $this->assertEquals('Total must be greater equals 0', $e->getMessage());
         }
     }
 
