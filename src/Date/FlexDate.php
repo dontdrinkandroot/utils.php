@@ -2,6 +2,9 @@
 
 namespace Dontdrinkandroot\Date;
 
+use DateTime;
+use Exception;
+
 /**
  * @author Philip Washington Sorst <philip@sorst.net>
  */
@@ -12,20 +15,11 @@ class FlexDate
     const PRECISION_DAY = 'day';
     const PRECISION_NONE = 'none';
 
-    /**
-     * @var int|null
-     */
-    protected $year;
+    protected ?int $year;
 
-    /**
-     * @var int|null
-     */
-    protected $month;
+    protected ?int $month;
 
-    /**
-     * @var int|null
-     */
-    protected $day;
+    protected ?int $day;
 
     public function __construct(?int $year = null, ?int $month = null, ?int $day = null)
     {
@@ -80,7 +74,7 @@ class FlexDate
             $this->assertValid();
 
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -88,11 +82,11 @@ class FlexDate
     public function assertValid(): bool
     {
         if (null !== $this->day && null === $this->month) {
-            throw new \Exception('Day set, but no month');
+            throw new Exception('Day set, but no month');
         }
 
         if (null !== $this->month && null === $this->year) {
-            throw new \Exception('Month, but no year');
+            throw new Exception('Month, but no year');
         }
 
         return true;
@@ -103,9 +97,9 @@ class FlexDate
         return checkdate($this->month, $this->day, $this->year);
     }
 
-    public function toDateTime(): \DateTime
+    public function toDateTime(): DateTime
     {
-        $dateTime = new \DateTime();
+        $dateTime = new DateTime();
         $inferredYear = $this->year !== null ? $this->year : 0;
         $inferredMonth = $this->month !== null ? $this->month : 1;
         $inferredDay = $this->day !== null ? $this->day : 1;

@@ -2,38 +2,31 @@
 
 namespace Dontdrinkandroot\Pagination;
 
+use InvalidArgumentException;
+
 /**
  * @author Philip Washington Sorst <philip@sorst.net>
  */
 class Pagination
 {
-    /**
-     * @var int
-     */
-    private $currentPage;
+    private int $currentPage;
 
-    /**
-     * @var int
-     */
-    private $perPage;
+    private int $perPage;
 
-    /**
-     * @var int
-     */
-    private $total;
+    private int $total;
 
     public function __construct(int $currentPage, int $perPage, int $total)
     {
         if ($currentPage < 1) {
-            throw new \InvalidArgumentException('CurrentPage must be greater than 0');
+            throw new InvalidArgumentException('CurrentPage must be greater than 0');
         }
 
         if ($perPage < 1) {
-            throw new \InvalidArgumentException('PerPage mustbe greater than 0');
+            throw new InvalidArgumentException('PerPage mustbe greater than 0');
         }
 
         if ($total < 0) {
-            throw new \InvalidArgumentException('Total must be greater equals 0');
+            throw new InvalidArgumentException('Total must be greater equals 0');
         }
 
         $this->perPage = $perPage;

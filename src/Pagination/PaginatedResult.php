@@ -7,15 +7,9 @@ namespace Dontdrinkandroot\Pagination;
  */
 class PaginatedResult
 {
-    /**
-     * @var Pagination
-     */
-    private $pagination;
+    private Pagination $pagination;
 
-    /**
-     * @var array
-     */
-    private $results;
+    private array $results;
 
     public function __construct(Pagination $pagination, array $results)
     {
